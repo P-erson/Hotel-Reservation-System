@@ -18,6 +18,7 @@ public abstract class Staff {
     }
 
     static HotelDatabase DATABASE = new HotelDatabase();
+    static RoomType ROOM_TYPES = new RoomType();
 
     public ArrayList<Guest> viewGuests(HotelDatabase database){ return database.getGuests(); }
     public ArrayList<Room> viewRooms(HotelDatabase database){ return database.getRooms(); }

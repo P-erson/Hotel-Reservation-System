@@ -53,16 +53,12 @@ public class Admin extends Staff{
 
 
     //Room Type CRUDs
-    // public void createRoomType(String roomType){ DATABASE.roomTypes.add(roomType); }
-    // public ArrayList<RoomType> viewRoomTypes(){ return DATABASE.}
+    public void createRoomType(String roomType){ ROOM_TYPES.addType(roomType); }
+    public ArrayList<String> viewRoomTypes(){ return ROOM_TYPES.getTypes(); }
 
-    // // public void updateRoomType(String originalRoomType, String newRoomType){
-    // //     int originalRoomTypesIndex = DATABASE.roomTypes.indexOf(originalRoomType);
-    // //     DATABASE.roomTypes.set(originalRoomTypesIndex, newRoomType);
-    // // }
+    public void updateRoomType(String originalRoomType, String newRoomType){
+        ROOM_TYPES.updateType(originalRoomType, newRoomType);
+    }
 
-    // public void removeRoomType(String roomType){
-    //     int roomTypeIndex = DATABASE.roomTypes.indexOf(roomType);
-    //     DATABASE.roomTypes.remove(roomTypeIndex);
-    // }
+    public void removeRoomType(String roomType){ ROOM_TYPES.removeType(roomType); }
 }

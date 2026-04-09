@@ -1,5 +1,3 @@
-import java.util.ArrayList;
-
 public class Amenity
 {
     private String name; // name of wifi , type of tv , name of mini-bar
