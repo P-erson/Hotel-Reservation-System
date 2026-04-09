@@ -1,4 +1,5 @@
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 public abstract class Staff {
     private String username, password;
@@ -6,80 +7,68 @@ public abstract class Staff {
     private Role role;
     private int workingHours;
 
-    public Staff(){}
+    public Staff() {}
 
     public Staff(String username, String password, LocalDate dateOfBirth, Role role, int workingHours){
-        if (username == null || username.isBlank()){
-            // throw empty username exception
-        }
-
-        this.username = username;
-
-        if (password == null || password.isBlank()){
-            // throw empty password exception
-        }
-
-        this.password = password;
-
-        this.dateOfBirth = dateOfBirth;
-        this.role = role;
-        this.workingHours = workingHours;
+        this.setUsername(username);
+        this.setPassword(password);
+        this.setDateOfBirth(dateOfBirth);
+        this.setRole(role);
+        this.setWorkingHours(workingHours);
     }
 
-    public void viewGuests(HotelDatabase database){
-        System.out.println(database.guests);
-    }
+    static HotelDatabase DATABASE = new HotelDatabase();
 
-    public void viewRooms(HotelDatabase database){
-        System.out.println(database.rooms);
-    }
-
-    public void viewReservations(HotelDatabase database){
-        System.out.println(database.reservations);
-    }
+    public ArrayList<Guest> viewGuests(HotelDatabase database){ return database.getGuests(); }
+    public ArrayList<Room> viewRooms(HotelDatabase database){ return database.getRooms(); }
+    public ArrayList<Reservation> viewReservations(HotelDatabase database){ return database.getReservations(); }
 
 
 
-    //Setters & Getters
+    //Setters
     public void setUsername(String username){
         if (username == null || username.isBlank()){
             // throw empty username exception
+        } else {
+            this.username = username;
         }
-
-        this.username = username;
     }
     public void setPassword(String password){
         if (password == null || password.isBlank()){
             // throw empty password exception
+        } else {
+            this.password = password;
         }
-
-        this.password = password;
     }
     public void setDateOfBirth(LocalDate dateOfBirth){
-        this.dateOfBirth = dateOfBirth;
+        if (dateOfBirth.isAfter(LocalDate.of(1952, 2, 6))){
+            this.dateOfBirth = dateOfBirth;
+        } else {
+            // throw invalid date exception
+        }
     }
     public void setRole(Role role){
-        this.role = role;
+        if (role == Role.ADMIN || role == Role.RECEPTIONIST){
+            this.role = role;
+        } else {
+            // throw invalid role exception
+        }
     }
     public void setWorkingHours(int workingHours){
-        this.workingHours = workingHours;
+        if (workingHours <= 12){
+            this.workingHours = workingHours;
+        } else {
+            // throw maximum shift exceeded exception
+        }
+        
     }
 
-    public String getUsername(){
-        return username;
-    }
-    public String getPassword(){
-        return password;
-    }
-    public LocalDate getDateOfBirth(){
-        return dateOfBirth;
-    }
-    public Role getRole(){
-        return role;
-    }
-    public int getWorkingHours(){
-        return workingHours;
-    }
+    //Getters
+    public String getUsername(){ return username; }
+    public String getPassword(){ return password; }
+    public LocalDate getDateOfBirth(){ return dateOfBirth; }
+    public Role getRole(){ return role; }
+    public int getWorkingHours(){ return workingHours; }
 }
 
 
