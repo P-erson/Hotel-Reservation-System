@@ -8,47 +8,61 @@ public class Admin extends Staff{
     }
 
     //Room CRUDs
-    // public void createRoom(HotelDatabase database, int roomNumber, ){
-    //     database.rooms.add(new Room(roomNumber, ))
+    public void createRoom(int roomNumber, RoomType roomType, ArrayList<Amenity> amenities){
+        DATABASE.addRoom(new Room(roomNumber, roomType, amenities));
+    }
+
+    public ArrayList<Room> viewRooms() { return DATABASE.getRooms(); }
+
+    // public void updateRoom(int roomNumber, RoomType newRoomType, ArrayList<Amenity> newRoomAmenities) {
+    //     int roomNumberIndex = DATABASE.getRooms().indexOf(roomNumber);
+    //     Room originalRoomIndex = DATABASE.getRooms().get(roomNumberIndex);
+    //     DATABASE.updateRooms(originalRoomIndex, )
     // }
 
 
     //Amenity CRUDs
-    public void createAmenity(HotelDatabase database, String amenity){
-        database.amenities.add(amenity);
+    public void createAmenity(String name, int id, String description, double price){
+        DATABASE.addAmenity(new Amenity(name, id, description, price));
     }
 
-    public ArrayList<Amenity> readAmenities(HotelDatabase database){
-        return database.amenities;
-    }
+    public ArrayList<Amenity> viewAmenities(){ return DATABASE.getAmenities(); }
 
-    public void updateAmenity(HotelDatabase database, String originalAmenity, String newAmenity){
-        int originalAmenityIndex = database.amenities.indexOf(originalAmenity);
-        database.amenities.set(originalAmenityIndex, newAmenity);
-    }
+    // public void updateAmenity(String originalAmenity, String name, int id, String description, double price){
+    //     int originalAmenityIndex = DATABASE.getAmenities().indexOf(originalAmenity);
+    //     DATABASE.amenities.set(originalAmenityIndex, new Amenity(name, id, description, price));
+    // }
 
-    public void removeAmenity(HotelDatabase database, String amenity){
-        int amenityIndex = database.amenities.indexOf(amenity);
-        database.amenities.remove(amenityIndex);
+    public void removeAmenity(String amenity){
+        int amenityIndex = -1;
+
+        for (int i = 0; i < DATABASE.getAmenities().size(); i++){
+            if (DATABASE.getAmenities().get(i).getName().equalsIgnoreCase(amenity)) {
+                amenityIndex = i;
+                break;
+            }
+        }
+
+        if (amenityIndex != -1) {
+            Amenity amenityObject = DATABASE.getAmenities().get(amenityIndex);
+            DATABASE.removeAmenity(amenityObject);
+        } else {
+            // throw non-existant amenity exceeption
+        }
     }
 
 
     //Room Type CRUDs
-    public void createRoomType(HotelDatabase database, String roomType){
-        database.roomTypes.add(roomType);
-    }
+    // public void createRoomType(String roomType){ DATABASE.roomTypes.add(roomType); }
+    // public ArrayList<RoomType> viewRoomTypes(){ return DATABASE.}
 
-    public ArrayList<RoomType> readRoomTypes(HotelDatabase database){
-        return database.roomTypes;
-    }
+    // // public void updateRoomType(String originalRoomType, String newRoomType){
+    // //     int originalRoomTypesIndex = DATABASE.roomTypes.indexOf(originalRoomType);
+    // //     DATABASE.roomTypes.set(originalRoomTypesIndex, newRoomType);
+    // // }
 
-    public void updateRoomType(HotelDatabase database, String originalRoomType, String newRoomType){
-        int originalRoomTypesIndex = database.roomTypes.indexOf(originalRoomType);
-        database.roomTypes.set(originalRoomTypesIndex, newRoomType);
-    }
-
-    public void removeRoomType(HotelDatabase database, String roomType){
-        int roomTypeIndex = database.roomTypes.indexOf(roomType);
-        database.roomTypes.remove(roomTypeIndex);
-    }
+    // public void removeRoomType(String roomType){
+    //     int roomTypeIndex = DATABASE.roomTypes.indexOf(roomType);
+    //     DATABASE.roomTypes.remove(roomTypeIndex);
+    // }
 }
