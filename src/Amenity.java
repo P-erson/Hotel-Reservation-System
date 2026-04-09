@@ -6,14 +6,13 @@ public class Amenity
     private int id; //
     private String description; // description of the amenity
     private double price;// if the hotel charges extra for any amenity
-private ArrayList<String> amenities;
-    public Amenity(String name , int id , String description , double price , ArrayList<String> amenities)
+
+    public Amenity(String name , int id , String description , double price )
     {
         this.name = name;
         this.description = description;
         this.id = id;
         this.price = price;
-        this.amenities = amenities;
     }
     public void setName(String n)
     {
@@ -47,18 +46,19 @@ private ArrayList<String> amenities;
         {
             return this.price;
         }
-        public ArrayList<String> getAmenities()
+       /* public ArrayList<String> getAmenities()
         {
-            return this.amenities;
+            return this.HotelDatabase.amenities;
         }
-        public void addAmenity(String amenity)
+        public void addAmenity()
         {
-            this.amenities.add(amenity);
+            this.HotelDatabase.amenities.add(amenity);
         }
-        public void removeAmenity(String amenity)
+        public void removeAmenity()
         {
-            this.amenities.remove(amenity);
-        }
+            this.HotelDatabase.amenities.remove(amenity);
+        }*/
+
 @Override
         public String toString()
         {
