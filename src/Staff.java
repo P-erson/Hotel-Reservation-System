@@ -1,9 +1,7 @@
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-public abstract class Staff {
-    private String username, password;
-    private LocalDate dateOfBirth;
+public abstract class Staff extends User{
     private Role role;
     private int workingHours;
 

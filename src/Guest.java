@@ -1,11 +1,10 @@
 import java.time.LocalDate;
 
-public class Guest {
+public class Guest extends User{
 
     //initializing the required attributes
 
-    private String username, password, address, roomPreferences;
-    private LocalDate dateOfBirth;
+    private String address, roomPreferences;
     private double balance;
     private Gender gender;
 
