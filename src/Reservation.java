@@ -6,6 +6,9 @@ public class Reservation{
     private LocalDate checkInDate;
     private LocalDate checkOutDate;
     private ReservationStatus status = ReservationStatus.PENDING;
+    public Reservation (){
+                this.status = ReservationStatus.CONFIRMED;
+    }
     public Reservation (Guest guest, Room room, LocalDate checkIn, LocalDate checkOut){
         this.guest = guest;
         this.room = room;
