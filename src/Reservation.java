@@ -21,7 +21,7 @@ public class Reservation{
     }
 
     public void setStatus(ReservationStatus status) {
-        this.status = status;
+            this.status = status;
     }
 
     public LocalDate getCheckOutDate() {
@@ -29,6 +29,11 @@ public class Reservation{
     }
 
     public void setCheckOutDate(LocalDate checkOutDate) {
+        
+    if (checkOutDate == null || checkOutDate.isBefore(checkInDate) || checkOutDate.isEqual(checkInDate)) {
+        System.out.println("Check-out date must be after check-in date.");
+        return;
+    }
         this.checkOutDate = checkOutDate;
     }
 
@@ -53,6 +58,10 @@ public class Reservation{
     }
 
     public void setCheckInDate(LocalDate checkInDate) {
+        if (checkInDate == null || checkInDate.isBefore(LocalDate.now())) {
+        System.out.println("Check-in date must be today or in the future.");
+        return;
+    }
         this.checkInDate = checkInDate;
     }
 
