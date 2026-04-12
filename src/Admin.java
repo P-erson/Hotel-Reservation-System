@@ -53,11 +53,11 @@ public class Admin extends Staff{
 
 
     //Room Type CRUDs
-    public void createRoomType(String roomType){ ROOM_TYPES.addType(roomType); }
+    public void createRoomType(String roomType, Double roomPrice){ ROOM_TYPES.addType(roomType, roomPrice); }
     public ArrayList<String> viewRoomTypes(){ return ROOM_TYPES.getTypes(); }
 
-    public void updateRoomType(String originalRoomType, String newRoomType){
-        ROOM_TYPES.updateType(originalRoomType, newRoomType);
+    public void updateRoomType(String originalRoomType, String newRoomType, Double originalRoomPrice, Double newRoomPrice){
+        ROOM_TYPES.update(originalRoomType, newRoomType, originalRoomPrice, newRoomPrice);
     }
 
     public void removeRoomType(String roomType){ ROOM_TYPES.removeType(roomType); }
