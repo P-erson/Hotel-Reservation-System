@@ -21,5 +21,31 @@ class Invoice{
         this.paymentDate = paymentDate;
         this.methods = new ArrayList<>();
     }
+      public double getTotalAmount() {
+        return totalAmount;
+    }
+
+    public void setTotalAmount(double totalAmount) {
+        if (totalAmount>=0)
+        this.totalAmount = totalAmount;
+        else 
+            System.out.println("Amount can't be negative");
+    }
+
+    public LocalDate getPaymentDate() {
+        return paymentDate;
+    }
+
+    public void setPaymentDate(LocalDate paymentDate) {
+        this.paymentDate = paymentDate;
+    }
+
+    public ArrayList<PaymentMethod> getMethods() {
+        return methods;
+    }
+
+    public void setMethods(ArrayList<PaymentMethod> methods) {
+        this.methods = methods;
+    }
 
 }
