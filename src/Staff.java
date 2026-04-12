@@ -15,8 +15,6 @@ public abstract class Staff extends User{
         this.setWorkingHours(workingHours);
     }
 
-    static HotelDatabase DATABASE = new HotelDatabase();
-    static RoomType ROOM_TYPES = new RoomType();
 
     public ArrayList<Guest> viewGuests(HotelDatabase database){ return database.getGuests(); }
     public ArrayList<Room> viewRooms(HotelDatabase database){ return database.getRooms(); }
@@ -25,27 +23,6 @@ public abstract class Staff extends User{
 
 
     //Setters
-    public void setUsername(String username){
-        if (username == null || username.isBlank()){
-            // throw empty username exception
-        } else {
-            this.username = username;
-        }
-    }
-    public void setPassword(String password){
-        if (password == null || password.isBlank()){
-            // throw empty password exception
-        } else {
-            this.password = password;
-        }
-    }
-    public void setDateOfBirth(LocalDate dateOfBirth){
-        if (dateOfBirth.isAfter(LocalDate.of(1952, 2, 6))){
-            this.dateOfBirth = dateOfBirth;
-        } else {
-            // throw invalid date exception
-        }
-    }
     public void setRole(Role role){
         if (role == Role.ADMIN || role == Role.RECEPTIONIST){
             this.role = role;

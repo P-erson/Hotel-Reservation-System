@@ -7,6 +7,9 @@ public class Admin extends Staff{
         super(username, password, dateOfBirth, Role.ADMIN, workingHours);
     }
 
+
+
+    
     //Room CRUDs
     public void createRoom(int roomNumber, RoomType roomType, ArrayList<Amenity> amenities){
         DATABASE.addRoom(new Room(roomNumber, roomType, amenities));
@@ -19,6 +22,8 @@ public class Admin extends Staff{
     //     Room originalRoomIndex = DATABASE.getRooms().get(roomNumberIndex);
     //     DATABASE.updateRooms(originalRoomIndex, )
     // }
+
+
 
 
     //Amenity CRUDs
@@ -50,6 +55,8 @@ public class Admin extends Staff{
             // throw non-existant amenity exceeption
         }
     }
+
+
 
 
     //Room Type CRUDs
