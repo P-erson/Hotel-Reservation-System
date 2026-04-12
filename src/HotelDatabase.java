@@ -38,4 +38,24 @@ public class HotelDatabase {
     public ArrayList<Invoice> getInvoices() { return invoices; }
     public void addInvoices(Invoice invoice) { invoices.add(invoice); }
     public void removeInvoice(Invoice invoice) { invoices.remove(invoice); }
+
+
+    //admins
+    private ArrayList<Admin> admins = new ArrayList<Admin>();
+
+    public ArrayList<Admin> getAdmins() {return admins;}
+    public void addAdmins(Admin admin) { admins.add(admin); }
+    public void removeAdmins(Admin admin) { admins.remove(admin); }
+
+
+    //receptionist
+    private ArrayList<Receptionist> receptionists = new ArrayList<Receptionist>();
+
+    public ArrayList<Receptionist> getReceptionists() {return receptionists;}
+    public void addReceptionist(Receptionist receptionist) { receptionists.add(receptionist); }
+    public void removeReceptionist(Receptionist receptionist) { receptionists.remove(receptionist); }
+
+
+
+
 }
