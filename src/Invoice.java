@@ -1,15 +1,19 @@
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-class Invoice{
+public class Invoice{
     public enum PaymentMethod { CASH, CREDIT_CARD, ONLINE };
     private double totalAmount;
     private LocalDate paymentDate;
     private ArrayList<PaymentMethod> methods;
+    private Reservation Reservation;
 
     public void addPayment(PaymentMethod method) {
-        methods.add(method);
+    if (method == null) {
+        throw new IllegalArgumentException("Payment Method cannot be a null value.");
     }
+    methods.add(method);
+}
 
     public void getSummary() {
         System.out.println("Total Amount: " + totalAmount);
@@ -26,19 +30,22 @@ class Invoice{
     }
 
     public void setTotalAmount(double totalAmount) {
-        if (totalAmount>=0)
-        this.totalAmount = totalAmount;
-        else 
-            System.out.println("Amount can't be negative");
+    if (totalAmount < 0) {
+        throw new IllegalArgumentException("Amount can't be negative.");
     }
+    this.totalAmount = totalAmount;
+}
 
     public LocalDate getPaymentDate() {
         return paymentDate;
     }
 
     public void setPaymentDate(LocalDate paymentDate) {
-        this.paymentDate = paymentDate;
+    if (paymentDate == null || paymentDateisBefore(LocalDate.now())) {
+        throw new IllegalArgumentException("Payment date cannot be null or in the past.");
     }
+    this.paymentDate = paymentDate;
+}
 
     public ArrayList<PaymentMethod> getMethods() {
         return methods;
