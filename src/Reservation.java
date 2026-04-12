@@ -6,17 +6,24 @@ public class Reservation{
     private LocalDate checkInDate;
     private LocalDate checkOutDate;
     private ReservationStatus status = ReservationStatus.PENDING;
+    private Invoice invoice;
     public Reservation (){
                 this.status = ReservationStatus.PENDING;
     }
     public Reservation (Guest guest, Room room, LocalDate checkIn, LocalDate checkOut){
-        this.guest = guest;
-        this.room = room;
-        this.checkInDate = checkIn;
-        this.checkOutDate = checkOut;
+        setGuest(guest);
+        setRoom(room);
+        setCheckInDate(checkIn);
+        setCheckOutDate(checkOut); 
         this.status = ReservationStatus.CONFIRMED;
     }
     public void cancelReservation() {
+        if (this.status == ReservationStatus.COMPLETED) {
+            throw new IllegalStateException("Cannot cancel a completed reservation.");
+        }
+        if (this.status == ReservationStatus.CANCELLED) {
+            throw new IllegalStateException("Reservation is already cancelled.");
+        }
         this.status = ReservationStatus.CANCELLED;
     }
     public ReservationStatus getStatus() {
@@ -24,7 +31,10 @@ public class Reservation{
     }
 
     public void setStatus(ReservationStatus status) {
-            this.status = status;
+        if (status == null) {
+            throw new IllegalArgumentException("Status cannot be null.");
+        }
+        this.status = status;
     }
 
     public LocalDate getCheckOutDate() {
@@ -45,14 +55,21 @@ public class Reservation{
     }
 
     public void setGuest(Guest guest) {
+        if (guest == null) {
+            throw new IllegalArgumentException("Guest cannot be null.");
+        }
         this.guest = guest;
     }
+
 
     public Room getRoom() {
         return room;
     }
 
     public void setRoom(Room room) {
+        if (room == null) {
+            throw new IllegalArgumentException("Room cannot be null.");
+        }
         this.room = room;
     }
 
@@ -66,6 +83,9 @@ public class Reservation{
         return;
     }
         this.checkInDate = checkInDate;
+    }
+    public Invoice getInvoice() {
+        return invoice;
     }
 
 }
