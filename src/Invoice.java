@@ -6,7 +6,7 @@ public class Invoice{
     private double totalAmount;
     private LocalDate paymentDate;
     private ArrayList<PaymentMethod> methods;
-    private Reservation Reservation;
+    private Reservation reservation;
 
     public void addPayment(PaymentMethod method) {
     if (method == null) {
@@ -21,8 +21,8 @@ public class Invoice{
         System.out.println("Payment Methods: " + methods);
     }
     public Invoice(double totalAmount, LocalDate paymentDate) {
-        this.totalAmount = totalAmount;
-        this.paymentDate = paymentDate;
+        setTotalAmount(totalAmount);
+    setPaymentDate(paymentDate);
         this.methods = new ArrayList<>();
     }
       public double getTotalAmount() {
@@ -41,7 +41,7 @@ public class Invoice{
     }
 
     public void setPaymentDate(LocalDate paymentDate) {
-    if (paymentDate == null || paymentDateisBefore(LocalDate.now())) {
+    if (paymentDate == null || paymentDate.isBefore(LocalDate.now())) {
         throw new IllegalArgumentException("Payment date cannot be null or in the past.");
     }
     this.paymentDate = paymentDate;
@@ -53,6 +53,9 @@ public class Invoice{
 
     public void setMethods(ArrayList<PaymentMethod> methods) {
         this.methods = methods;
+    }
+      public Reservation getReservation() {
+        return reservation;
     }
 
 }
