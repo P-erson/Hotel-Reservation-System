@@ -17,29 +17,34 @@ public class RoomType
         this.prices.add(300.00);
 
     }
-    public RoomType(ArrayList<String> types , ArrayList<Double> pries)
+    public RoomType(ArrayList<String> types , ArrayList<Double> prices)
     {
         this.types = types;
         this.prices = prices;
     }
 
+    //Getters
     public ArrayList<String> getTypes()
     {
         return this.types;
     }
+        public ArrayList<Double> getPrices()
+    {
+        return this.prices;
+    }
+
+    //Setters
     public void setTypes(ArrayList<String> t)
     {
         this.types = t;
     }
 
-    public ArrayList<Double> getPrices()
-    {
-        return this.prices;
-    }
     public void setPrices(ArrayList<Double> p)
     {
         this.prices = p;
     }
+
+
 
     public void updatePrices(Double Oldprice , Double Newprice) // updates old price and replaces it with new price
     {
@@ -50,5 +55,16 @@ public class RoomType
         {
             this.prices.set(index, Newprice);
         }
+    }
+
+    public void addType(String type, Double price){
+        types.add(type);
+        prices.add(price);
+    }
+
+    public void removeType(String type){
+        int index = types.indexOf(type);
+        types.remove(index);
+        prices.remove(index);
     }
 }
