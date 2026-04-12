@@ -3,51 +3,44 @@ import java.util.ArrayList;
 public class Room
 {
     private int roomNumber;
-    private RoomType type;
+    private String type;
     private ArrayList<Amenity> amenities;
 
-    public Room(int roomNumber, RoomType type) {
+    public Room(int roomNumber, String type) {
         this.roomNumber = roomNumber;
         this.type = type;
         this.amenities = new ArrayList<>();
     }
-    public Room(int roomNumber , RoomType type , ArrayList<Amenity> amenities)
+
+    public Room(int roomNumber , String type , ArrayList<Amenity> amenities)
     {
         this.roomNumber = roomNumber;
         this.type = type;
         this.amenities = amenities;
     }
-    public void setRoomNumber(int RN)
-    {
-        this.roomNumber=RN;
+
+    //Setters
+    public void setRoomNumber(int RN) { roomNumber=RN; }
+    public void setType(String t) { type = t; }
+    public void setAmenities(ArrayList<Amenity> A) { amenities = A; }
+
+    //Getters
+    public int getRoomNumber() { return roomNumber; }
+    public String getType() { return type; }
+    public ArrayList<Amenity> getAmenities() { return amenities; }
+
+
+    public void updateAmenity(int oldAmenityId, Amenity newAmenity){
+        for (int i = 0; i < amenities.size(); i++){
+            if (amenities.get(i).getId() == oldAmenityId){
+                amenities.remove(i);
+                break;
+            }
+        }
+
+        addAmenity(newAmenity);
     }
-    public void setType(RoomType t)
-    {
-        this.type = t;
-    }
-    public void setAmenities(ArrayList<Amenity> A)
-    {
-        this.amenities = A;
-    }
-    public int getRoomNumber()
-    {
-        return this.roomNumber;
-    }
-    public RoomType getType()
-    {
-        return this.type;
-    }
-    public ArrayList<Amenity> getAmenities()
-    {
-        return this.amenities;
-    }
-    public void addAmenity(Amenity amenity)
-    {
-        this.amenities.add(amenity);
-    }
-    public void removeAmenity(Amenity amenity)
-    {
-        this.amenities.remove(amenity);
-    }
+    public void addAmenity(Amenity amenity) { amenities.add(amenity); }
+    public void removeAmenity(Amenity amenity) { amenities.remove(amenity); }
 
 }

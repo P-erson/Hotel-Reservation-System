@@ -44,5 +44,4 @@ public class User {
     }
 
     static HotelDatabase DATABASE = new HotelDatabase();
-    static RoomType ROOM_TYPES = new RoomType();
 }
