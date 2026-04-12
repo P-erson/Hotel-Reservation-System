@@ -45,8 +45,18 @@ public class RoomType
     }
 
 
+    private void updateType(String oldType, String newType) // updates old price and replaces it with new price
+    {
 
-    public void updatePrices(Double Oldprice , Double Newprice) // updates old price and replaces it with new price
+        int index = types.indexOf(oldType);
+
+        if (index != -1)
+        {
+            types.set(index, newType);
+        }
+    }
+
+    private void updatePrices(Double Oldprice , Double Newprice) // updates old price and replaces it with new price
     {
 
         int index = this.prices.indexOf(Oldprice);
@@ -55,6 +65,12 @@ public class RoomType
         {
             this.prices.set(index, Newprice);
         }
+    }
+
+
+    public void update(String oldType, String newType, Double oldPrice, Double newPrice){
+        updateType(oldType, newType);
+        updatePrices(oldPrice, newPrice);
     }
 
     public void addType(String type, Double price){
