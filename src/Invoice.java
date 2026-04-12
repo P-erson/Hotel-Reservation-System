@@ -1,11 +1,11 @@
-import java.time.LocalDate
-import java.util.ArrayList
+import java.time.LocalDate;
+import java.util.ArrayList;
 
 class Invoice{
-     public enum PaymentMethod { CASH, CREDIT_CARD, ONLINE };
+    public enum PaymentMethod { CASH, CREDIT_CARD, ONLINE };
 private double totalAmount;
 private LocalDate paymentDate;
-private List<PaymentMethod> methods;
+private ArrayList<PaymentMethod> methods;
 
 public void addPayment(PaymentMethod method) {
     methods.add(method);
