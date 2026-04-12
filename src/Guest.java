@@ -91,6 +91,7 @@ public class Guest extends User{
         this.setBalance(balance);
         this.setGender(gender);
 
+        DATABASE.addGuest(this);
     }
 
 
