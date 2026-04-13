@@ -2,6 +2,9 @@ import java.util.ArrayList;
 
 public class Room
 {
+    //as any room created will still have be avaliable so it is always true until a reservation is made so
+    //its value will change there , thats why i did not add it in the constructors
+    private boolean isAvailable = true;
     private int roomNumber;
     private String type;
     private ArrayList<Amenity> amenities;
@@ -23,11 +26,13 @@ public class Room
     public void setRoomNumber(int RN) { roomNumber=RN; }
     public void setType(String t) { type = t; }
     public void setAmenities(ArrayList<Amenity> A) { amenities = A; }
+    public void setAvailable(boolean available) {isAvailable = available;}
 
     //Getters
     public int getRoomNumber() { return roomNumber; }
     public String getType() { return type; }
     public ArrayList<Amenity> getAmenities() { return amenities; }
+    public boolean isAvailable() {return isAvailable;}
 
 
     public void updateAmenity(int oldAmenityId, Amenity newAmenity){

@@ -16,6 +16,7 @@ public class Reservation{
         setCheckInDate(checkIn);
         setCheckOutDate(checkOut); 
         this.status = ReservationStatus.CONFIRMED;
+        room.setAvailable(false);
     }
     public void cancelReservation() {
         if (this.status == ReservationStatus.COMPLETED) {
@@ -25,6 +26,7 @@ public class Reservation{
             throw new IllegalStateException("Reservation is already cancelled.");
         }
         this.status = ReservationStatus.CANCELLED;
+        room.setAvailable(true);
     }
     public ReservationStatus getStatus() {
         return status;

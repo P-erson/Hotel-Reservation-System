@@ -19,6 +19,17 @@ public class HotelDatabase {
     public void addGuest(Guest guest) { guests.add(guest); }
     public void removeGuest(Guest guest) { guests.remove(guest); }
     public void setGuest(int index, Guest guest) { guests.set(index, guest); }
+    public Guest searchGuest(String username, String password)
+    {
+        for(int i = 0; i <= guests.size() - 1; i++ )
+        {
+            if(guests.get(i).getUsername().equals(username) && guests.get(i).getPassword().equals(password) )
+            {
+                return guests.get(i);
+            }
+        }
+        return null;
+    }
 
 
     // rooms
@@ -28,7 +39,7 @@ public class HotelDatabase {
     public void addRoom(Room room) { rooms.add(room); }
     public void removeRoom(Room room) { rooms.remove(room); }
     public void setRoom(int index, Room room) { rooms.set(index, room); }
-    
+
     
     // reservations
     private ArrayList<Reservation> reservations = new ArrayList<Reservation>();
