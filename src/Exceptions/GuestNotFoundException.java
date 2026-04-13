@@ -1,3 +1,4 @@
+package Exceptions;
 public class GuestNotFoundException extends Exception {
     private String username;
     public GuestNotFoundException(String username){

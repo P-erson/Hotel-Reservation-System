@@ -1,7 +1,9 @@
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+import Exceptions.GuestNotFoundException;
 import Exceptions.InvalidBalanceException;
+import Exceptions.RoomNotAvailableException;
 
 public class Guest extends User{
 
