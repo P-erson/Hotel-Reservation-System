@@ -1,3 +1,6 @@
+import Exceptions.InvalidRole;
+import Exceptions.WorkingHoursOutOfRangeException;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 
@@ -21,18 +24,18 @@ public abstract class Staff extends User{
 
 
     //Setters
-    public void setRole(Role role){
+    public void setRole(Role role) throws InvalidRole {
         if (role == Role.ADMIN || role == Role.RECEPTIONIST){
             this.role = role;
         } else {
-            // throw invalid role exception
+            throw new InvalidRole(role);
         }
     }
-    public void setWorkingHours(int workingHours){
-        if (workingHours <= 12){
+    public void setWorkingHours(int workingHours) throws WorkingHoursOutOfRangeException{
+        if (workingHours <= 12 && workingHours < 0){
             this.workingHours = workingHours;
         } else {
-            // throw maximum shift exceeded exception
+            throw new WorkingHoursOutOfRangeException(workingHours);
         }
         
     }

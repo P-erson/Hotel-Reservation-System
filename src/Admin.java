@@ -1,3 +1,6 @@
+import Exceptions.AmenityDoesNotExistException;
+import Exceptions.RoomDoesNotExistException;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 
@@ -19,7 +22,7 @@ public class Admin extends Staff{
 
     public ArrayList<Room> viewRooms() { return DATABASE.getRooms(); }
 
-    public void updateRoom(int roomNumber, String roomtype, ArrayList<Amenity> amenities){
+    public void updateRoom(int roomNumber, String roomtype, ArrayList<Amenity> amenities) throws RoomDoesNotExistException{
         int roomNumberIndex = -1;
 
         for (int i = 0; i < DATABASE.getRooms().size(); i++){
@@ -32,13 +35,13 @@ public class Admin extends Staff{
         }
 
         if (roomNumberIndex == -1){
-            // throw non-existant room exception
+            throw new RoomDoesNotExistException(roomNumber);
         } else {
             DATABASE.setRoom(roomNumberIndex, new Room(roomNumber, roomtype, amenities));
         }
     }
 
-    public void removeRoom(int roomNumber){
+    public void removeRoom(int roomNumber) throws RoomDoesNotExistException{
         int roomIndex = -1;
 
         for (int i = 0; i < DATABASE.getRooms().size(); i++){
@@ -49,7 +52,7 @@ public class Admin extends Staff{
         }
 
         if (roomIndex == -1) {
-            // throw non-existant room exception
+            throw new RoomDoesNotExistException(roomNumber);
         } else {
             Room roomObject = DATABASE.getRooms().get(roomIndex);
             DATABASE.removeRoom(roomObject);
@@ -66,7 +69,7 @@ public class Admin extends Staff{
 
     public ArrayList<Amenity> viewAmenities(){ return DATABASE.getAmenities(); }
 
-    public void updateAmenity(String originalAmenityName, String name, int id, String description, double price){
+    public void updateAmenity(String originalAmenityName, String name, int id, String description, double price) throws AmenityDoesNotExistException{
         int originalAmenityIndex = -1;
 
         for (int i = 0; i < DATABASE.getAmenities().size(); i++){
@@ -77,13 +80,13 @@ public class Admin extends Staff{
         }
 
         if (originalAmenityIndex == -1){
-            // throw non-existant amenity exception
+            throw new AmenityDoesNotExistException(originalAmenityName);
         } else {
             DATABASE.setAmenity(originalAmenityIndex, new Amenity(name, id, description, price));
         }
     }
 
-    public void removeAmenity(String amenity){
+    public void removeAmenity(String amenity) throws AmenityDoesNotExistException{
         int amenityIndex = -1;
 
         for (int i = 0; i < DATABASE.getAmenities().size(); i++){
@@ -94,7 +97,7 @@ public class Admin extends Staff{
         }
 
         if (amenityIndex == -1) {
-            // throw non-existant amenity exception
+            throw new AmenityDoesNotExistException(amenity);
         } else {
             Amenity amenityObject = DATABASE.getAmenities().get(amenityIndex);
             DATABASE.removeAmenity(amenityObject);
