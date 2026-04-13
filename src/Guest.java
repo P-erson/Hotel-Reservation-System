@@ -70,11 +70,8 @@ public class Guest extends User{
 
     //adding the getters
 
-    public String getUsername() { return username; }
-    public String getPassword() { return password; }
     public String getAddress() { return address; }
     public String getRoomPreferences() { return roomPreferences; }
-    public LocalDate getDateOfBirth() { return dateOfBirth; }
     public double getBalance() { return balance; }
     public Gender getGender() { return gender; }
 
@@ -82,17 +79,17 @@ public class Guest extends User{
     
     //adding the constructor in case of a register ONLY
 
-    public Guest(String username,String password,String address,String roomPreferences,LocalDate dateOfBirth,double balance,Gender gender) throws Exception{
-        this.setUsername(username);
-        this.setPassword(password);
+    public Guest(String username, String password, LocalDate dateOfBirth,String address,String roomPreferences, double balance,Gender gender) throws Exception{
+        super(username, password, dateOfBirth);
         this.setAddress(address);
         this.setRoomPreferences(roomPreferences);
-        this.setDateOfBirth(dateOfBirth);
         this.setBalance(balance);
         this.setGender(gender);
 
         DATABASE.addGuest(this);
     }
+
+
 
 
 

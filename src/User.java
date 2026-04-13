@@ -1,8 +1,8 @@
 import java.time.LocalDate;
 
 public class User {
-    String username, password;
-    LocalDate dateOfBirth;
+    private String username, password;
+    private LocalDate dateOfBirth;
 
     //added a custom-made exception to be handled in the main incase of an invalid username entered such as empty username ( null ya3ny)
     public void setUsername(String username) throws InvalidUsernameException {
@@ -38,6 +38,19 @@ public class User {
             throw new InvalidDateOfBirthException(dateOfBirth);
         }
     }
+    //adding a constructor
+    public User(String username, String password , LocalDate dateOfBirth) throws Exception{
+        this.setUsername(username);
+        this.setPassword(password);
+        this.setDateOfBirth(dateOfBirth);
+    }
+
+    //adding the getters
+
+    public String getUsername() {return username;}
+    public String getPassword() {return password;}
+    public LocalDate getDateOfBirth() {return dateOfBirth;}
+
 
     static HotelDatabase DATABASE = new HotelDatabase();
 }
