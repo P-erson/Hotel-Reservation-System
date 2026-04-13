@@ -1,5 +1,9 @@
 import java.time.LocalDate;
 
+import Exceptions.InvalidDateOfBirthException;
+import Exceptions.InvalidPasswordException;
+import Exceptions.InvalidUsernameException;
+
 public class User {
     private String username, password;
     private LocalDate dateOfBirth;

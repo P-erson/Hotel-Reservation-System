@@ -1,6 +1,8 @@
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+import Exceptions.InvalidBalanceException;
+
 public class Guest extends User{
 
     //initializing the required attributes

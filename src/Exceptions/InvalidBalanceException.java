@@ -1,3 +1,4 @@
+package Exceptions;
 public class InvalidBalanceException extends Exception {
     private double balance;
 
