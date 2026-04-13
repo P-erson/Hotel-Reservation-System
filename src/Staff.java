@@ -7,7 +7,7 @@ public abstract class Staff extends User{
 
     public Staff() {}
 
-    public Staff(String username, String password, LocalDate dateOfBirth, Role role, int workingHours){
+    public Staff(String username, String password, LocalDate dateOfBirth, Role role, int workingHours) throws Exception{
         this.setUsername(username);
         this.setPassword(password);
         this.setDateOfBirth(dateOfBirth);

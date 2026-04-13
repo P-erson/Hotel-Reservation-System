@@ -39,29 +39,29 @@ public class Guest extends User{
         }
     }
 
-    //validation for non-negative balance
-    //if the balance entered is negative, it will be automatically be a 0 balance
-
-    public void setBalance(double balance) {
-        if( balance >= 0) {
+    //added a custom exception incase of a negative balance
+    //IMPORTANT NOTE: to be handled in the main method when asking the user to enter a balance by adding
+    //a while loop for example, cause throwing and catching the exception in the same method is useless so it must be
+    //done in the main
+    public void setBalance(double balance) throws InvalidBalanceException {
+        if (balance >= 0)
             this.balance = balance;
-        }
         else {
-            // will create a custom made exception and throw it here
+            throw new InvalidBalanceException(balance);
         }
     }
+
 
     //here the validation is special since enum will actually only accept the choices or left blank
     //so thats why i only added another check to see if it is null
 
-    public void setGender(Gender gender) {
+    public void setGender(Gender gender) throws NullPointerException  {
         if(gender == Gender.MALE || gender == Gender.FEMALE){
             this.gender = gender;
         }
         else{
-            if(gender == null) {
-                // will create a custom made exception and throw it here
-            }
+                throw new NullPointerException();
+
         }
     }
 
@@ -82,7 +82,7 @@ public class Guest extends User{
     
     //adding the constructor in case of a register ONLY
 
-    public Guest(String username,String password,String address,String roomPreferences,LocalDate dateOfBirth,double balance,Gender gender){
+    public Guest(String username,String password,String address,String roomPreferences,LocalDate dateOfBirth,double balance,Gender gender) throws Exception{
         this.setUsername(username);
         this.setPassword(password);
         this.setAddress(address);
@@ -93,10 +93,6 @@ public class Guest extends User{
 
         DATABASE.addGuest(this);
     }
-
-
-
-
 
 
 
