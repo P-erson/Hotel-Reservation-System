@@ -5,12 +5,10 @@ public abstract class Staff extends User{
     private Role role;
     private int workingHours;
 
-    public Staff() {}
+    // public Staff() {}
 
     public Staff(String username, String password, LocalDate dateOfBirth, Role role, int workingHours) throws Exception{
-        this.setUsername(username);
-        this.setPassword(password);
-        this.setDateOfBirth(dateOfBirth);
+        super(username, password, dateOfBirth);
         this.setRole(role);
         this.setWorkingHours(workingHours);
     }
@@ -40,9 +38,9 @@ public abstract class Staff extends User{
     }
 
     //Getters
-    public String getUsername(){ return username; }
-    public String getPassword(){ return password; }
-    public LocalDate getDateOfBirth(){ return dateOfBirth; }
+    public String getUsername(){ return super.getUsername(); }
+    public String getPassword(){ return super.getPassword(); }
+    public LocalDate getDateOfBirth(){ return super.getDateOfBirth(); }
     public Role getRole(){ return role; }
     public int getWorkingHours(){ return workingHours; }
 }

@@ -3,7 +3,7 @@ import java.util.ArrayList;
 
 
 public class Admin extends Staff{
-    public Admin(String username, String password, LocalDate dateOfBirth, int workingHours){
+    public Admin(String username, String password, LocalDate dateOfBirth, int workingHours) throws Exception{
         super(username, password, dateOfBirth, Role.ADMIN, workingHours);
 
         DATABASE.addAdmins(this);
