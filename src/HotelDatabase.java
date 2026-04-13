@@ -79,4 +79,37 @@ public class HotelDatabase {
 
 
 
+
+
+    public HotelDatabase()
+    {
+        Amenity wifi = new Amenity("Wifi",1111,"a wireless networking technology using radio waves" , 20 );
+        Amenity tv = new Amenity("TV",1112,"a device with a screen for receiving television signals.",100);
+        Amenity gym = new Amenity("GYM",1113,"an indoor venue for exercise and sports",60);
+
+        addAmenity(wifi);
+        addAmenity(tv);
+        addAmenity(gym);
+
+        Guest g1 = new Guest("Ali Sadek","as173_g1","28/01/2007" , "Cairo","Add extra pillows and blankets",100, Guest.Gender.MALE);
+        Guest g2 = new Guest("Khaled Sorour","ks548_g2","26/02/1969","Menofiya","Use quiet AC units",500, Guest.Gender.FEMALE);
+        Guest g3 =new Guest("Mahmoud Fayed","mf784_g3","04/01/2009","Giza","Ensure a light switch is next to the bed",200, Guest.Gender.MALE);
+
+        addGuest(g1);
+        addGuest(g2);
+        addGuest(g3);
+
+        Room r1 = new Room(101,"Single");
+        Room r2 = new Room(102,"Double");
+        Room r3 = new Room(103 , "Single ");
+
+        addRoom(r1);
+        addRoom(r2);
+        addRoom(r3);
+
+        Reservation res1 = new Reservation();
+        Reservation res2 = new Reservation();
+        Reservation res3 = new Reservation();
+
+    }
 }
