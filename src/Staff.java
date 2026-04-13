@@ -1,3 +1,6 @@
+import Exceptions.InvalidRole;
+import Exceptions.WorkingHoursOutOfRangeException;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 
@@ -5,12 +8,10 @@ public abstract class Staff extends User{
     private Role role;
     private int workingHours;
 
-    public Staff() {}
+    // public Staff() {}
 
     public Staff(String username, String password, LocalDate dateOfBirth, Role role, int workingHours) throws Exception{
-        this.setUsername(username);
-        this.setPassword(password);
-        this.setDateOfBirth(dateOfBirth);
+        super(username, password, dateOfBirth);
         this.setRole(role);
         this.setWorkingHours(workingHours);
     }
@@ -23,26 +24,26 @@ public abstract class Staff extends User{
 
 
     //Setters
-    public void setRole(Role role){
+    public void setRole(Role role) throws InvalidRole {
         if (role == Role.ADMIN || role == Role.RECEPTIONIST){
             this.role = role;
         } else {
-            // throw invalid role exception
+            throw new InvalidRole(role);
         }
     }
-    public void setWorkingHours(int workingHours){
-        if (workingHours <= 12){
+    public void setWorkingHours(int workingHours) throws WorkingHoursOutOfRangeException{
+        if (workingHours <= 12 && workingHours < 0){
             this.workingHours = workingHours;
         } else {
-            // throw maximum shift exceeded exception
+            throw new WorkingHoursOutOfRangeException(workingHours);
         }
         
     }
 
     //Getters
-    public String getUsername(){ return username; }
-    public String getPassword(){ return password; }
-    public LocalDate getDateOfBirth(){ return dateOfBirth; }
+    public String getUsername(){ return super.getUsername(); }
+    public String getPassword(){ return super.getPassword(); }
+    public LocalDate getDateOfBirth(){ return super.getDateOfBirth(); }
     public Role getRole(){ return role; }
     public int getWorkingHours(){ return workingHours; }
 }
