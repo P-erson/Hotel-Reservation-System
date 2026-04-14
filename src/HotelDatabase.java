@@ -1,3 +1,4 @@
+import java.time.LocalDate;
 import java.util.ArrayList;
 public class HotelDatabase {
     // room types
@@ -81,7 +82,7 @@ public class HotelDatabase {
 
 
 
-    public HotelDatabase()
+    public HotelDatabase() throws Exception
     {
         Amenity wifi = new Amenity("Wifi",1111,"a wireless networking technology using radio waves" , 20 );
         Amenity tv = new Amenity("TV",1112,"a device with a screen for receiving television signals.",100);
@@ -91,9 +92,9 @@ public class HotelDatabase {
         addAmenity(tv);
         addAmenity(gym);
 
-        Guest g1 = new Guest("Ali Sadek","as173_g1","28/01/2007" , "Cairo","Add extra pillows and blankets",100, Guest.Gender.MALE);
-        Guest g2 = new Guest("Khaled Sorour","ks548_g2","26/02/1969","Menofiya","Use quiet AC units",500, Guest.Gender.FEMALE);
-        Guest g3 =new Guest("Mahmoud Fayed","mf784_g3","04/01/2009","Giza","Ensure a light switch is next to the bed",200, Guest.Gender.MALE);
+        Guest g1 = new Guest("Ali Sadek","as173_g1", LocalDate.of(28, 01, 2007), "Cairo","Add extra pillows and blankets",100, Guest.Gender.MALE);
+        Guest g2 = new Guest("Khaled Sorour","ks548_g2", LocalDate.of(26, 02, 1969),"Menofiya","Use quiet AC units",500, Guest.Gender.FEMALE);
+        Guest g3 =new Guest("Mahmoud Fayed","mf784_g3",LocalDate.of(04, 01, 2009),"Giza","Ensure a light switch is next to the bed",200, Guest.Gender.MALE);
 
         addGuest(g1);
         addGuest(g2);
