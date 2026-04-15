@@ -56,5 +56,13 @@ public class User {
     public LocalDate getDateOfBirth() {return dateOfBirth;}
 
 
-    static HotelDatabase DATABASE = new HotelDatabase();
+    static HotelDatabase DATABASE;
+
+    static {
+        try {
+            DATABASE = new HotelDatabase();
+        } catch(Exception e) {
+            System.out.println("Exception caused in Database: " + e);
+        }
+    }
 }
