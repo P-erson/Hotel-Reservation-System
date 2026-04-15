@@ -6,4 +6,8 @@ public class GuestNotFoundException extends Exception {
                 ", please make sure you entered the right credentials.");
         this.username = username;
     }
+
+    public String getUsername(){
+        return username;
+    }
 }
