@@ -116,4 +116,14 @@ public class Admin extends Staff{
     }
 
     public void removeRoomType(String roomType){ DATABASE.ROOM_TYPES.removeType(roomType); }
+
+
+
+    public void confirmReservation(Reservation reservation) throws Exception{
+        if (reservation.getStatus() == Reservation.ReservationStatus.PENDING){
+            reservation.setStatus(Reservation.ReservationStatus.CONFIRMED);
+        } else {
+            throw new Exception("Reservation can't be confirmed due to non-pending status: " + reservation.getStatus());
+        }
+    }
 }

@@ -1,23 +1,30 @@
 import java.time.LocalDate;
-public class Reservation{
-    public enum ReservationStatus {PENDING, CONFIRMED, CANCELLED, COMPLETED};
+
+public class Reservation {
+    public enum ReservationStatus {
+        PENDING, CONFIRMED, CANCELLED, COMPLETED
+    };
+
     private Guest guest;
     private Room room;
     private LocalDate checkInDate;
     private LocalDate checkOutDate;
     private ReservationStatus status = ReservationStatus.PENDING;
     private Invoice invoice;
-    public Reservation (){
-                this.status = ReservationStatus.PENDING;
+
+    public Reservation() {
+        this.status = ReservationStatus.PENDING;
     }
-    public Reservation (Guest guest, Room room, LocalDate checkIn, LocalDate checkOut){
+
+    public Reservation(Guest guest, Room room, LocalDate checkIn, LocalDate checkOut) {
         setGuest(guest);
         setRoom(room);
         setCheckInDate(checkIn);
-        setCheckOutDate(checkOut); 
+        setCheckOutDate(checkOut);
         this.status = ReservationStatus.CONFIRMED;
         room.setAvailable(false);
     }
+
     public void cancelReservation() {
         if (this.status == ReservationStatus.COMPLETED) {
             throw new IllegalStateException("Cannot cancel a completed reservation.");
@@ -28,6 +35,7 @@ public class Reservation{
         this.status = ReservationStatus.CANCELLED;
         room.setAvailable(true);
     }
+
     public ReservationStatus getStatus() {
         return status;
     }
@@ -45,10 +53,10 @@ public class Reservation{
 
     public void setCheckOutDate(LocalDate checkOutDate) {
         
-    if (checkOutDate == null || checkOutDate.isBefore(checkInDate) || checkOutDate.isEqual(checkInDate)) {
-        System.out.println("Check-out date must be after check-in date.");
-        return;
-    }
+        if (checkOutDate == null || checkOutDate.isBefore(checkInDate) || checkOutDate.isEqual(checkInDate)) {
+            System.out.println("Check-out date must be after check-in date.");
+            return;
+        }
         this.checkOutDate = checkOutDate;
     }
 
@@ -62,7 +70,6 @@ public class Reservation{
         }
         this.guest = guest;
     }
-
 
     public Room getRoom() {
         return room;
@@ -81,11 +88,12 @@ public class Reservation{
 
     public void setCheckInDate(LocalDate checkInDate) {
         if (checkInDate == null || checkInDate.isBefore(LocalDate.now())) {
-        System.out.println("Check-in date must be today or in the future.");
-        return;
-    }
+            System.out.println("Check-in date must be today or in the future.");
+            return;
+        }
         this.checkInDate = checkInDate;
     }
+
     public Invoice getInvoice() {
         return invoice;
     }
