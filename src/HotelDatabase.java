@@ -108,9 +108,13 @@ public class HotelDatabase {
         addRoom(r2);
         addRoom(r3);
 
-        Reservation res1 = new Reservation();
-        Reservation res2 = new Reservation();
+        Reservation res1 = new Reservation(g1,r1,LocalDate.of(2026,06,12),LocalDate.of(2026,06,15));
+        Reservation res2 = new Reservation(g2,r2,LocalDate.of(2026,07,02),LocalDate.of(2026,07,07));
         Reservation res3 = new Reservation();
+
+        addReservation(res1);
+        addReservation(res2);
+        addReservation(res3);
 
     }
 }
