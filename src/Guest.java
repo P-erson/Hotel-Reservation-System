@@ -1,8 +1,10 @@
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 
 import Exceptions.GuestNotFoundException;
 import Exceptions.InvalidBalanceException;
+import Exceptions.InvalidPaymentException;
 import Exceptions.RoomNotAvailableException;
 
 public class Guest extends User{
@@ -144,6 +146,51 @@ public class Guest extends User{
         }
         return viewReservationsArray;
     }
+
+    public void cancelReservation(int roomNumber){
+        ArrayList<Reservation> viewReservationsArray = DATABASE.getReservations();
+        for(int i = 0; i< viewReservationsArray.size(); i++ )
+        {
+            if(viewReservationsArray.get(i).getGuest().getUsername().equals(this.getUsername()) &&
+                    viewReservationsArray.get(i).getRoom().getRoomNumber() == roomNumber)
+            {
+                viewReservationsArray.get(i).cancelReservation();
+                return;
+            }
+        }
+    }
+
+    public Invoice checkout(int roomNumber, Invoice.PaymentMethod paymentMethod) throws InvalidPaymentException, InvalidBalanceException {
+        ArrayList<Reservation> viewReservationsArray = DATABASE.getReservations();
+        Reservation reservation = new Reservation();
+        for(int i = 0; i< viewReservationsArray.size(); i++ )
+        {
+            if(viewReservationsArray.get(i).getGuest().getUsername().equals(this.getUsername()) &&
+                    viewReservationsArray.get(i).getRoom().getRoomNumber() == roomNumber)
+            {
+                reservation = viewReservationsArray.get(i);
+            }
+        }
+
+        double total = ChronoUnit.DAYS.between(reservation.getCheckInDate(), reservation.getCheckOutDate()) *
+                reservation.getRoom().getPricePerNight();
+
+        if(this.getBalance() < total){
+            throw new InvalidPaymentException(total, this.getBalance());
+        }
+
+        Invoice invoice = new Invoice(total, LocalDate.now());
+        invoice.addPayment(paymentMethod);
+
+        this.setBalance(this.getBalance() - total);
+        reservation.setStatus(Reservation.ReservationStatus.COMPLETED);
+        reservation.getRoom().setAvailable(true);
+        DATABASE.addInvoices(invoice);
+        return invoice;
+
+
+    }
+
 
 
 

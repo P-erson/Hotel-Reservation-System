@@ -8,6 +8,7 @@ public class Room
     private int roomNumber;
     private String type;
     private ArrayList<Amenity> amenities;
+    private double pricePerNight;
 
     public Room(int roomNumber, String type) {
         this.roomNumber = roomNumber;
@@ -15,7 +16,7 @@ public class Room
         this.amenities = new ArrayList<>();
     }
 
-    public Room(int roomNumber , String type , ArrayList<Amenity> amenities)
+    public Room(int roomNumber , String type , ArrayList<Amenity> amenities, double pricePerNight)
     {
         this.roomNumber = roomNumber;
         this.type = type;
@@ -27,6 +28,7 @@ public class Room
     public void setType(String t) { type = t; }
     public void setAmenities(ArrayList<Amenity> A) { amenities = A; }
     public void setAvailable(boolean available) {isAvailable = available;}
+    public void setPricePerNight(double pricePerNight) {this.pricePerNight = pricePerNight;}
 
     //Getters
     public int getRoomNumber() { return roomNumber; }
@@ -48,4 +50,5 @@ public class Room
     public void addAmenity(Amenity amenity) { amenities.add(amenity); }
     public void removeAmenity(Amenity amenity) { amenities.remove(amenity); }
 
+    public double getPricePerNight() {return pricePerNight;}
 }

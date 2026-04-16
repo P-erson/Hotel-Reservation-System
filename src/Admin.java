@@ -16,13 +16,13 @@ public class Admin extends Staff{
 
     
     //Room CRUDs
-    public void createRoom(int roomNumber, String roomType, ArrayList<Amenity> amenities){
-        DATABASE.addRoom(new Room(roomNumber, roomType, amenities));
+    public void createRoom(int roomNumber, String roomType, ArrayList<Amenity> amenities, double pricePerNight){
+        DATABASE.addRoom(new Room(roomNumber, roomType, amenities, pricePerNight));
     }
 
     public ArrayList<Room> viewRooms() { return DATABASE.getRooms(); }
 
-    public void updateRoom(int roomNumber, String roomtype, ArrayList<Amenity> amenities) throws RoomDoesNotExistException{
+    public void updateRoom(int roomNumber, String roomtype, ArrayList<Amenity> amenities, double pricePerNight) throws RoomDoesNotExistException{
         int roomNumberIndex = -1;
 
         for (int i = 0; i < DATABASE.getRooms().size(); i++){
@@ -37,7 +37,7 @@ public class Admin extends Staff{
         if (roomNumberIndex == -1){
             throw new RoomDoesNotExistException(roomNumber);
         } else {
-            DATABASE.setRoom(roomNumberIndex, new Room(roomNumber, roomtype, amenities));
+            DATABASE.setRoom(roomNumberIndex, new Room(roomNumber, roomtype, amenities,pricePerNight ));
         }
     }
 
