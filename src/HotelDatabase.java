@@ -92,7 +92,7 @@ public class HotelDatabase {
         addAmenity(tv);
         addAmenity(gym);
 
-        Guest g1 = new Guest("Ali Sadek","as173_g1", LocalDate.of(2018, 01, 28), "Cairo","Add extra pillows and blankets",1, Guest.Gender.FEMALE);
+        Guest g1 = new Guest("Ali Sadek","as173_g1", LocalDate.of(2007, 01, 28), "Cairo","Add extra pillows and blankets",100, Guest.Gender.MALE);
         Guest g2 = new Guest("Khaled Sorour","ks548_g2", LocalDate.of(2007, 07, 1),"Menofiya","Use quiet AC units",500, Guest.Gender.MALE);
         Guest g3 =new Guest("Mahmoud Fayed","mf784_g3",LocalDate.of(2009, 01, 04),"Giza","Ensure a light switch is next to the bed",200, Guest.Gender.MALE);
 
