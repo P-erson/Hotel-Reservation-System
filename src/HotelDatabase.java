@@ -116,5 +116,30 @@ public class HotelDatabase {
         addReservation(res2);
         addReservation(res3);
 
+        Admin a1 = new Admin("Mark Eham","me854_a1",LocalDate.of(1998,02,30),8);
+                Admin a2 = new Admin("Mohamed Khaled ","mk963_a2",LocalDate.of(1994,05,14),7);
+Admin a3 = new Admin("Tamer Elgayar","tg111_a3",LocalDate.of(1974,8,06),6);
+
+addAdmins(a1);
+addAdmins(a2);
+addAdmins(a3);
+
+
+Invoice i1 = new Invoice(20,LocalDate.of(2026,04,16));
+        Invoice i2 = new Invoice(10,LocalDate.of(2026,04,18));
+        Invoice i3 = new Invoice(30,LocalDate.of(2026,05,20));
+
+        addInvoices(i1);
+        addInvoices(i2);
+        addInvoices(i3);
+
+
+        Receptionist receptionist1 = new Receptionist("Fares el Assab","fa911_rece1",LocalDate.of(2001,5,13),8);
+        Receptionist receptionist2 = new Receptionist("hossam mowafi","hm912_rece2",LocalDate.of(2000,9,30),7);
+        Receptionist receptionist3 = new Receptionist("Mohamed Magdy","mm913_rece3",LocalDate.of(1999,7,21),6);
+
+        addReceptionist(receptionist1);
+        addReceptionist(receptionist2);
+        addReceptionist(receptionist3);
     }
 }
