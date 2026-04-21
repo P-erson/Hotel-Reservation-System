@@ -34,3 +34,7 @@ src/Test.java
 
 ### Bytecode files ###
 *.class
+
+node_modules/
+package-lock.json
+package.json
