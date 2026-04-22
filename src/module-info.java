@@ -1,6 +1,6 @@
 module Hotel.Reservation.System {
     requires javafx.controls;
-    requires  javafx.fxml;
+    requires javafx.fxml;
 
     opens com.example to javafx.fxml;
 
