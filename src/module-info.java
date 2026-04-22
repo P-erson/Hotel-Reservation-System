@@ -4,5 +4,5 @@ module Hotel.Reservation.System {
 
     opens com.example to javafx.fxml;
 
-    exports  com.example;
+    exports com.example;
 }
