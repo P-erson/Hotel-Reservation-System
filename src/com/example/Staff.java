@@ -1,5 +1,7 @@
-import Exceptions.InvalidRole;
-import Exceptions.WorkingHoursOutOfRangeException;
+package com.example;
+
+import com.example.Exceptions.InvalidRole;
+import com.example.Exceptions.WorkingHoursOutOfRangeException;
 
 import java.time.LocalDate;
 import java.util.ArrayList;

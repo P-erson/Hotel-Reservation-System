@@ -1,4 +1,4 @@
-package Exceptions;
+package com.example.Exceptions;
 
 public class WorkingHoursOutOfRangeException extends Exception{
     private int workingHours;

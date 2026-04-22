@@ -1,5 +1,7 @@
-import Exceptions.AmenityDoesNotExistException;
-import Exceptions.RoomDoesNotExistException;
+package com.example;
+
+import com.example.Exceptions.AmenityDoesNotExistException;
+import com.example.Exceptions.RoomDoesNotExistException;
 
 import java.time.LocalDate;
 import java.util.ArrayList;

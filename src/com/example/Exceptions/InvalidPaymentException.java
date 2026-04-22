@@ -1,4 +1,4 @@
-package Exceptions;
+package com.example.Exceptions;
 
 public class InvalidPaymentException extends Exception{
 private double total, balance;

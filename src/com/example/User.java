@@ -1,8 +1,10 @@
+package com.example;
+
 import java.time.LocalDate;
 
-import Exceptions.InvalidDateOfBirthException;
-import Exceptions.InvalidPasswordException;
-import Exceptions.InvalidUsernameException;
+import com.example.Exceptions.InvalidDateOfBirthException;
+import com.example.Exceptions.InvalidPasswordException;
+import com.example.Exceptions.InvalidUsernameException;
 
 public class User {
     private String username, password;

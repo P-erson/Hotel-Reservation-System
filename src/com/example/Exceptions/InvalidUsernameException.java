@@ -1,4 +1,4 @@
-package Exceptions;
+package com.example.Exceptions;
 public class InvalidUsernameException extends Exception {
     private String username;
 

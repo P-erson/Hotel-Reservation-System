@@ -1,4 +1,4 @@
-package Exceptions;
+package com.example.Exceptions;
 public class InvalidPasswordException extends Exception{
     private String password;
     public InvalidPasswordException(String password){

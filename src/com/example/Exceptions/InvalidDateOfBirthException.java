@@ -1,4 +1,4 @@
-package Exceptions;
+package com.example.Exceptions;
 import java.time.LocalDate;
 
 public class InvalidDateOfBirthException extends Exception {

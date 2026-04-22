@@ -1,11 +1,13 @@
+package com.example;
+
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 
-import Exceptions.GuestNotFoundException;
-import Exceptions.InvalidBalanceException;
-import Exceptions.InvalidPaymentException;
-import Exceptions.RoomNotAvailableException;
+import com.example.Exceptions.GuestNotFoundException;
+import com.example.Exceptions.InvalidBalanceException;
+import com.example.Exceptions.InvalidPaymentException;
+import com.example.Exceptions.RoomNotAvailableException;
 
 public class Guest extends User{
 

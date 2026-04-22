@@ -1,4 +1,4 @@
-package Exceptions;
+package com.example.Exceptions;
 
 public class RoomDoesNotExistException extends Exception{
     private int roomNumber;

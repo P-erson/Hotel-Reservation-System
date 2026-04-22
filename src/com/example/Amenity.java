@@ -1,3 +1,5 @@
+package com.example;
+
 public class Amenity
 {
     private String name; // name of wifi , type of tv , name of mini-bar

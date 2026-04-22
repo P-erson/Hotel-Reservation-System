@@ -1,4 +1,4 @@
-package Exceptions;
+package com.example.Exceptions;
 
 public class AmenityDoesNotExistException extends Exception{
     private String amenity;

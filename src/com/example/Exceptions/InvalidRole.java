@@ -1,4 +1,4 @@
-package Exceptions;
+package com.example.Exceptions;
 
 public class InvalidRole extends Exception{
     private Object role;

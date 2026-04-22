@@ -1,5 +1,7 @@
-import Exceptions.GuestNotFoundException;
-import Exceptions.RoomNotAvailableException;
+package com.example;
+
+import com.example.Exceptions.GuestNotFoundException;
+import com.example.Exceptions.RoomNotAvailableException;
 
 import java.time.LocalDate;
 
