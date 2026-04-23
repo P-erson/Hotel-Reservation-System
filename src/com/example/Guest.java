@@ -87,6 +87,9 @@ public class Guest extends User{
 
     
     //adding the constructor in case of a register ONLY
+    public Guest(){
+        super();
+    }
 
     public Guest(String username, String password, LocalDate dateOfBirth,String address,String roomPreferences, double balance,Gender gender) throws Exception{
         super(username, password, dateOfBirth);
@@ -102,7 +105,7 @@ public class Guest extends User{
     // this method returns a Guest object including all the guest info.
     //since in 2nd milestone when we implement this
     //we want the system to show the info of this specific guest
-    public Guest login(String username, String password) throws GuestNotFoundException
+    public static Guest login(String username, String password) throws GuestNotFoundException
     {
         if(DATABASE.searchGuest(username, password) == null)
             throw new GuestNotFoundException(username);
@@ -126,6 +129,9 @@ public class Guest extends User{
 
     public Reservation makeReservation(Room room, LocalDate checkIn, LocalDate checkOut) throws RoomNotAvailableException
     {
+        if (room == null || checkIn == null || checkOut == null){
+            throw new NullPointerException("Room: " + room + ", CheckIn: " + checkIn + ", CheckOut: " + checkOut);
+        }
         if(room.isAvailable())
         {
             Reservation reservation = new Reservation(this, room, checkIn, checkOut);

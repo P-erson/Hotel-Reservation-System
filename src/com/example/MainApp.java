@@ -9,7 +9,7 @@ import javafx.stage.Stage;
 import static javafx.application.Application.launch;
 
 
-public class MainApp {
+public class MainApp extends Application{
 
 
     public void start(Stage stage) throws Exception {

@@ -1,7 +1,7 @@
 
 //El test main , commented out 3ashan maybawzsh milestone 2
 
-/*
+
 package com.example;
 
 import java.time.LocalDate;
@@ -37,7 +37,7 @@ public class Main {
 
             System.out.println("\n- Pre-populated Reservations in Database -");
             for (Reservation res : User.DATABASE.getReservations()) {
-                if (res.getRoom() != null) {
+                if (res.getRoom() != null && res.getGuest() != null) {
                     System.out.println("Guest: " + res.getGuest().getUsername() + " | Room: " + res.getRoom().getRoomNumber() + " | Status: " + res.getStatus());
                 } else {
                     System.out.println("Empty reservation | Status: " + res.getStatus());
@@ -48,90 +48,89 @@ public class Main {
             // 2. GUEST REGISTRATION with validation loops
             System.out.println("           GUEST REGISTRATION");
 
+            Guest g = new Guest();
 
-            String username = null;
-            while (username == null) {
-                System.out.print("Enter username: ");
-                String input = scanner.nextLine();
-                try {
-                    if (input == null || input.isBlank()) throw new Exception("Username cannot be blank.");
-                    username = input;
-                } catch (Exception e) {
-                    System.out.println("Invalid username: " + e.getMessage() + " Please try again.");
+            {
+                String input = null;
+                while (input == null) {
+                    System.out.print("Enter username: ");
+                    input = scanner.nextLine();
+                    try {
+                        g.setUsername(input);
+                    } catch (Exception e) {
+                        System.out.println("Invalid username: " + e.getMessage() + " Please try again.");
+                        input = null;
+                    }
                 }
             }
 
-
-            String password = null;
-            while (password == null) {
-                System.out.print("Enter password (min 8 characters): ");
-                String input = scanner.nextLine();
-                try {
-                    if (input == null || input.isBlank() || input.length() < 8)
-                        throw new Exception("Password must be at least 8 characters.");
-                    password = input;
-                } catch (Exception e) {
-                    System.out.println("Invalid password: " + e.getMessage() + " Please try again.");
+            {
+                String input = null;
+                while (input == null) {
+                    System.out.print("Enter password (min 8 characters): ");
+                    input = scanner.nextLine();
+                    try {
+                        g.setPassword(input);
+                    } catch (Exception e) {
+                        System.out.println("Invalid password: " + e.getMessage() + " Please try again.");
+                        input = null;
+                    }
                 }
             }
 
-
-            LocalDate dob = null;
-            while (dob == null) {
-                System.out.print("Enter date of birth (YYYY-MM-DD): ");
-                String input = scanner.nextLine();
-                try {
-                    LocalDate parsed = LocalDate.parse(input);
-                    if (!parsed.isBefore(LocalDate.now()) || !parsed.isAfter(LocalDate.of(1900, 1, 1)))
-                        throw new Exception("Date must be in the past and after 1900.");
-                    dob = parsed;
-                } catch (Exception e) {
-                    System.out.println("Invalid date: " + e.getMessage() + " Please try again.");
+            {
+                LocalDate input = null;
+                while (input == null) {
+                    System.out.print("Enter date of birth (YYYY-MM-DD): ");
+                    try {
+                        input = LocalDate.parse(scanner.nextLine());
+                        g.setDateOfBirth(input);
+                    } catch (Exception e) {
+                        System.out.println("Invalid date: " + e.getMessage() + ". Please try again.");
+                        input = null;
+                    }
                 }
-            }
+            }   
 
-
+            
             System.out.print("Enter address: ");
-            String address = scanner.nextLine();
+            g.setAddress(scanner.nextLine());
 
 
             System.out.print("Enter room preferences: ");
-            String preferences = scanner.nextLine();
+            g.setRoomPreferences(scanner.nextLine());
 
-
-            double balance = -1;
-            while (balance < 0) {
-                System.out.print("Enter initial balance: ");
-                try {
-                    balance = Double.parseDouble(scanner.nextLine());
-                    if (balance < 0) throw new Exception("Balance cannot be negative.");
-                } catch (Exception e) {
-                    System.out.println("Invalid balance: " + e.getMessage() + " Please try again.");
-                    balance = -1;
+            {
+                double balance = -1;
+                while (balance == -1) {
+                    System.out.print("Enter initial balance: ");
+                    try {
+                        balance = scanner.nextInt();
+                        g.setBalance(balance);
+                    } catch (Exception e) {
+                        System.out.println("Invalid balance: " + e.getMessage() + " Please try again.");
+                        balance = -1;
+                    }
                 }
             }
 
-
-            Guest.Gender gender = null;
-            while (gender == null) {
-                System.out.print("Enter gender (MALE/FEMALE): ");
-                try {
-                    gender = Guest.Gender.valueOf(scanner.nextLine().toUpperCase());
-                } catch (Exception e) {
-                    System.out.println("Invalid gender. Please enter MALE or FEMALE.");
+            {
+                Guest.Gender gender = null;
+                while (gender == null) {
+                    System.out.print("Enter gender (MALE/FEMALE): ");
+                    try {
+                        gender = Guest.Gender.valueOf(scanner.nextLine().toUpperCase());
+                        g.setGender(gender);
+                    } catch (Exception e) {
+                        System.out.println("Invalid gender. Please enter MALE or FEMALE.");
+                        gender = null;
+                    }
                 }
             }
 
-
-            Guest newGuest = null;
-            try {
-                newGuest = new Guest(username, password, dob, address, preferences, balance, gender);
-                System.out.println("\nRegistration successful! Welcome, " + newGuest.getUsername());
-            } catch (Exception e) {
-                System.out.println("Registration failed: " + e.getMessage());
-                return;
-            }
-
+            // Add the newly registered guest to the database
+            User.DATABASE.addGuest(g);
+            System.out.println("Registration successful!");
 
             // 3. GUEST LOGIN
 
@@ -148,7 +147,7 @@ public class Main {
                 System.out.print("Enter password: ");
                 String loginPassword = scanner.nextLine();
                 try {
-                    loggedInGuest = newGuest.login(loginUsername, loginPassword);
+                    loggedInGuest = Guest.login(loginUsername, loginPassword);
                     System.out.println("Login successful! Welcome back, " + loggedInGuest.getUsername());
                 } catch (Exception e) {
                     System.out.println("Login failed: " + e.getMessage() + " Please try again.");
@@ -168,8 +167,8 @@ public class Main {
             if (availableRooms.isEmpty()) {
                 System.out.println("No rooms available at the moment.");
             } else {
-                for (Room r : availableRooms) {
-                    System.out.println("Room " + r.getRoomNumber() + " | Type: " + r.getType() + " | Price per night: $" + r.getPricePerNight());
+                for (int i = 0; i < availableRooms.size(); i++) {
+                    System.out.println("Room " + availableRooms.get(i).getRoomNumber() + " | Type: " + availableRooms.get(i).getType() + " | Price per night: $" + availableRooms.get(i).getPricePerNight());
                 }
             }
 
@@ -184,13 +183,13 @@ public class Main {
             System.out.println("========================================");
 
 
-            if (!availableRooms.isEmpty()) {
+            if (!(availableRooms.isEmpty())) {
                 Room roomToBook = availableRooms.get(0);
                 LocalDate checkIn = LocalDate.now().plusDays(1);
                 LocalDate checkOut = LocalDate.now().plusDays(3);
 
 
-                try {
+                try {   
                     Reservation newReservation = loggedInGuest.makeReservation(roomToBook, checkIn, checkOut);
                     System.out.println("Reservation made successfully!");
                     System.out.println("Room: " + newReservation.getRoom().getRoomNumber() + " | Check-in: " + checkIn + " | Check-out: " + checkOut);
@@ -207,11 +206,15 @@ public class Main {
                     System.out.println("========================================");
 
 
-                    ArrayList<Reservation> myReservations = loggedInGuest.viewReservations();
-                    for (Reservation res : myReservations) {
-                        if (res.getRoom() != null) {
-                            System.out.println("Room: " + res.getRoom().getRoomNumber() + " | Status: " + res.getStatus() + " | Check-in: " + res.getCheckInDate() + " | Check-out: " + res.getCheckOutDate());
+                    try {
+                        ArrayList<Reservation> myReservations = loggedInGuest.viewReservations();
+                        for (int i = 0; i < myReservations.size(); i++) {
+                            if (myReservations.get(i).getRoom() != null) {
+                                System.out.println("Room: " + myReservations.get(i).getRoom().getRoomNumber() + " | Status: " + myReservations.get(i).getStatus() + " | Check-in: " + myReservations.get(i).getCheckInDate() + " | Check-out: " + myReservations.get(i).getCheckOutDate());
+                            }
                         }
+                    } catch (Exception e) {
+                        System.out.println(e);
                     }
 
 
@@ -274,4 +277,4 @@ public class Main {
 
 
 
-*/
+

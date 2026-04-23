@@ -10,6 +10,8 @@ public class User {
     private String username, password;
     private LocalDate dateOfBirth;
 
+    public User() {}
+
     //added a custom-made exception to be handled in the main incase of an invalid username entered such as empty username ( null ya3ny)
     public void setUsername(String username) throws InvalidUsernameException {
         if (username == null || username.isBlank()){

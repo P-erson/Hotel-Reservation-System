@@ -24,12 +24,10 @@ public class HotelDatabase {
     public void setGuest(int index, Guest guest) { guests.set(index, guest); }
     public Guest searchGuest(String username, String password)
     {
-        for(int i = 0; i <= guests.size() - 1; i++ )
+        for(int i = 0; i < guests.size(); i++ )
         {
-            if(guests.get(i).getUsername().equals(username) && guests.get(i).getPassword().equals(password) )
-            {
+            if(guests.get(i).getUsername().equals(username) && guests.get(i).getPassword().equals(password))
                 return guests.get(i);
-            }
         }
         return null;
     }
@@ -84,8 +82,7 @@ public class HotelDatabase {
 
 
 
-    public HotelDatabase() throws Exception
-    { }
+    public HotelDatabase() { }
 
     public void populateData() throws Exception{
         Amenity wifi = new Amenity("Wifi",1111,"a wireless networking technology using radio waves" , 20 );
@@ -133,12 +130,11 @@ public class HotelDatabase {
 
         Reservation res1 = new Reservation(g1,r1,LocalDate.of(2026,06,12),LocalDate.of(2026,06,15));
         Reservation res2 = new Reservation(g2,r2,LocalDate.of(2026,07,02),LocalDate.of(2026,07,07));
-        Reservation res3 = new Reservation();
+
 
 
         addReservation(res1);
         addReservation(res2);
-        addReservation(res3);
 
 
         Admin a1 = new Admin("Mark Eham","me854_a1",LocalDate.of(1998,02,27),8);

@@ -54,8 +54,8 @@ public class Reservation {
     }
 
     public void setCheckOutDate(LocalDate checkOutDate) {
-        
-        if (checkOutDate == null || checkOutDate.isBefore(checkInDate) || checkOutDate.isEqual(checkInDate)) {
+
+        if (checkOutDate == null || checkInDate == null || checkOutDate.isBefore(checkInDate) || checkOutDate.isEqual(checkInDate)) {
             System.out.println("Check-out date must be after check-in date.");
             return;
         }
