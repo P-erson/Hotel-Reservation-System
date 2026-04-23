@@ -34,7 +34,7 @@ public abstract class Staff extends User{
         }
     }
     public void setWorkingHours(int workingHours) throws WorkingHoursOutOfRangeException{
-        if (workingHours <= 12 && workingHours < 0){
+        if (workingHours <= 12 && workingHours > 0){
             this.workingHours = workingHours;
         } else {
             throw new WorkingHoursOutOfRangeException(workingHours);

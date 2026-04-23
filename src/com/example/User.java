@@ -63,6 +63,7 @@ public class User {
     static {
         try {
             DATABASE = new HotelDatabase();
+            DATABASE.populateData();
         } catch(Exception e) {
             System.out.println("Exception caused in Database: " + e);
         }
