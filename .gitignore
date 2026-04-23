@@ -3,7 +3,10 @@ out/
 !**/src/main/**/out/
 !**/src/test/**/out/
 .kotlin/
-.idea/libraries/*
+.idea/libraries/
+
+#To avoid errors when working with JavaFX:
+Hotel_Reservation_System.iml
 
 ### Eclipse ###
 .apt_generated
