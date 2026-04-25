@@ -2,168 +2,274 @@ package com.example;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-public class HotelDatabase {
-    // room types
-    public RoomType ROOM_TYPES = new RoomType();
+import java.util.Scanner;
 
-    // amenties
-    private ArrayList<Amenity> amenities = new ArrayList<Amenity>();
-
-    public ArrayList<Amenity> getAmenities() { return amenities; }
-    public void addAmenity(Amenity amenity) { amenities.add(amenity); }
-    public void removeAmenity(Amenity amenity) { amenities.remove(amenity);}
-    public void setAmenity(int index, Amenity amenity) { amenities.set(index, amenity); }
+public class Main {
 
 
-    // guests
-    private ArrayList<Guest> guests = new ArrayList<Guest>();
 
-    public ArrayList<Guest> getGuests() { return guests; }
-    public void addGuest(Guest guest) { guests.add(guest); }
-    public void removeGuest(Guest guest) { guests.remove(guest); }
-    public void setGuest(int index, Guest guest) { guests.set(index, guest); }
-    public Guest searchGuest(String username, String password)
-    {
-        for(int i = 0; i < guests.size(); i++ )
-        {
-            if(guests.get(i).getUsername().equals(username) && guests.get(i).getPassword().equals(password))
-                return guests.get(i);
+    static Scanner scanner = new Scanner(System.in);
+
+
+    public static void main(String[] args) {
+
+
+        System.out.println("   Welcome to the Hotel Reservation System");
+
+
+
+
+        System.out.println("-Pre-populated Guests in Database -");
+        for (Guest g : User.DATABASE.getGuests()) {
+            System.out.println("Username: " + g.getUsername() + " | Balance: " + g.getBalance() + " | Gender: " + g.getGender());
         }
-        return null;
+
+
+        System.out.println("\n- Pre-populated Rooms in Database -");
+        for (Room r : User.DATABASE.getRooms()) {
+            System.out.println("Room " + r.getRoomNumber() + " | Type: " + r.getType() + " | Available: " + r.isAvailable());
+        }
+
+
+        System.out.println("\n- Pre-populated Reservations in Database -");
+        for (Reservation res : User.DATABASE.getReservations()) {
+            if (res.getRoom() != null && res.getGuest() != null) {
+                System.out.println("Guest: " + res.getGuest().getUsername() + " | Room: " + res.getRoom().getRoomNumber() + " | Status: " + res.getStatus());
+            } else {
+                System.out.println("Empty reservation | Status: " + res.getStatus());
+            }
+        }
+
+
+        // 2. GUEST REGISTRATION with validation loops
+        System.out.println("           GUEST REGISTRATION");
+
+        Guest g = new Guest();
+
+        {
+            String input = null;
+            while (input == null) {
+                System.out.print("Enter username: ");
+                input = scanner.nextLine();
+                try {
+                    g.setUsername(input);
+                } catch (Exception e) {
+                    System.out.println("Invalid username: " + e.getMessage() + " Please try again.");
+                    input = null;
+                }
+            }
+        }
+
+        {
+            String input = null;
+            while (input == null) {
+                System.out.print("Enter password (min 8 characters): ");
+                input = scanner.nextLine();
+                try {
+                    g.setPassword(input);
+                } catch (Exception e) {
+                    System.out.println("Invalid password: " + e.getMessage() + " Please try again.");
+                    input = null;
+                }
+            }
+        }
+
+        {
+            LocalDate input = null;
+            while (input == null) {
+                System.out.print("Enter date of birth (YYYY-MM-DD): ");
+                try {
+                    input = LocalDate.parse(scanner.nextLine());
+                    g.setDateOfBirth(input);
+                } catch (Exception e) {
+                    System.out.println("Invalid date: " + e.getMessage() + ". Please try again.");
+                    input = null;
+                }
+            }
+        }
+
+
+        System.out.print("Enter address: ");
+        g.setAddress(scanner.nextLine());
+
+
+        System.out.print("Enter room preferences: ");
+        g.setRoomPreferences(scanner.nextLine());
+
+        {
+            double balance = -1;
+            while (balance == -1) {
+                System.out.print("Enter initial balance: ");
+                try {
+                    balance = scanner.nextInt();
+                    g.setBalance(balance);
+                } catch (Exception e) {
+                    System.out.println("Invalid balance: " + e.getMessage() + " Please try again.");
+                    balance = -1;
+                }
+            }
+        }
+
+        {
+            Guest.Gender gender = null;
+            while (gender == null) {
+                System.out.print("Enter gender (MALE/FEMALE): ");
+                try {
+                    gender = Guest.Gender.valueOf(scanner.nextLine().toUpperCase());
+                    g.setGender(gender);
+                } catch (Exception e) {
+                    System.out.println("Invalid gender. Please enter MALE or FEMALE.");
+                    gender = null;
+                }
+            }
+        }
+
+        // Add the newly registered guest to the database
+        User.DATABASE.addGuest(g);
+        System.out.println("Registration successful!");
+
+        // 3. GUEST LOGIN
+
+
+        System.out.println("\n========================================");
+        System.out.println("              GUEST LOGIN");
+        System.out.println("========================================");
+
+
+        Guest loggedInGuest = null;
+        while (loggedInGuest == null) {
+            System.out.print("Enter username: ");
+            String loginUsername = scanner.nextLine();
+            System.out.print("Enter password: ");
+            String loginPassword = scanner.nextLine();
+            try {
+                loggedInGuest = Guest.login(loginUsername, loginPassword);
+                System.out.println("Login successful! Welcome back, " + loggedInGuest.getUsername());
+            } catch (Exception e) {
+                System.out.println("Login failed: " + e.getMessage() + " Please try again.");
+            }
+        }
+
+
+        // 4. VIEW AVAILABLE ROOMS
+
+
+        System.out.println("\n========================================");
+        System.out.println("          AVAILABLE ROOMS");
+        System.out.println("========================================");
+
+
+        ArrayList<Room> availableRooms = loggedInGuest.viewAvailableRooms();
+        if (availableRooms.isEmpty()) {
+            System.out.println("No rooms available at the moment.");
+        } else {
+            for (Room availableRoom : availableRooms) {
+                System.out.println("Room " + availableRoom.getRoomNumber() + " | Type: " + availableRoom.getType() + " | Price per night: $" + availableRoom.getPricePerNight());
+            }
+        }
+
+
+
+
+        // 5. MAKE A RESERVATION
+
+
+        System.out.println("\n========================================");
+        System.out.println("          MAKE A RESERVATION");
+        System.out.println("========================================");
+
+
+        if (!(availableRooms.isEmpty())) {
+            Room roomToBook = availableRooms.getFirst();
+            LocalDate checkIn = LocalDate.now().plusDays(1);
+            LocalDate checkOut = LocalDate.now().plusDays(3);
+
+
+            try {
+                Reservation newReservation = loggedInGuest.makeReservation(roomToBook, checkIn, checkOut);
+                System.out.println("Reservation made successfully!");
+                System.out.println("Room: " + newReservation.getRoom().getRoomNumber() + " | Check-in: " + checkIn + " | Check-out: " + checkOut);
+                System.out.println("Status: " + newReservation.getStatus());
+
+
+
+
+                // 6. VIEW RESERVATIONS
+
+
+                System.out.println("\n========================================");
+                System.out.println("         YOUR RESERVATIONS");
+                System.out.println("========================================");
+
+
+                try {
+                    ArrayList<Reservation> myReservations = loggedInGuest.viewReservations();
+                    for (Reservation myReservation : myReservations) {
+                        if (myReservation.getRoom() != null) {
+                            System.out.println("Room: " + myReservation.getRoom().getRoomNumber() + " | Status: " + myReservation.getStatus() + " | Check-in: " + myReservation.getCheckInDate() + " | Check-out: " + myReservation.getCheckOutDate());
+                        }
+                    }
+                } catch (Exception e) {
+                    System.out.println(e);
+                }
+
+
+                // 7. CANCEL A RESERVATION — using a second room
+                System.out.println("\n========================================");
+                System.out.println("         CANCEL A RESERVATION");
+                System.out.println("========================================");
+
+
+                if (availableRooms.size() > 1) {
+                    Room roomToCancel = availableRooms.get(1);
+                    loggedInGuest.makeReservation(roomToCancel, checkIn, checkOut);
+                    System.out.println("Made a second reservation for Room " + roomToCancel.getRoomNumber() + " to demonstrate cancellation.");
+
+
+                    loggedInGuest.cancelReservation(roomToCancel.getRoomNumber());
+                    System.out.println("Reservation for Room " + roomToCancel.getRoomNumber() + " cancelled successfully!");
+                    System.out.println("Room " + roomToCancel.getRoomNumber() + " is now available: " + roomToCancel.isAvailable());
+                } else {
+                    System.out.println("Not enough rooms to demonstrate cancellation.");
+                }
+
+
+
+
+                // 8. CHECKOUT
+                System.out.println("\n========================================");
+                System.out.println("              CHECKOUT");
+                System.out.println("========================================");
+
+
+                System.out.println("Guest balance before checkout: $" + loggedInGuest.getBalance());
+                System.out.println("Checking out from Room " + roomToBook.getRoomNumber() + "...");
+
+
+                try {
+                    Invoice invoice = loggedInGuest.checkout(roomToBook.getRoomNumber(), Invoice.PaymentMethod.CASH);
+                    System.out.println("Checkout successful!");
+                    System.out.println("Total Amount: $" + invoice.getTotalAmount());
+                    System.out.println("Payment Method: " + invoice.getMethods());
+                    System.out.println("Payment Date: " + invoice.getPaymentDate());
+                    System.out.println("Guest balance after checkout: $" + loggedInGuest.getBalance());
+                } catch (Exception e) {
+                    System.out.println("Checkout failed: " + e.getMessage());
+                }
+
+
+            } catch (Exception e) {
+                System.out.println("Reservation failed: " + e.getMessage());
+            }
+        } else {
+            System.out.println("No available rooms to make a reservation.");
+        }
+
+
+        System.out.println("     ENd of test");
+        scanner.close();
     }
-
-
-    // rooms
-    private ArrayList<Room> rooms = new ArrayList<Room>();
-
-    public ArrayList<Room> getRooms() { return rooms; }
-    public void addRoom(Room room) { rooms.add(room); }
-    public void removeRoom(Room room) { rooms.remove(room); }
-    public void setRoom(int index, Room room) { rooms.set(index, room); }
-
-
-    // reservations
-    private ArrayList<Reservation> reservations = new ArrayList<Reservation>();
-
-    public ArrayList<Reservation> getReservations() { return reservations; }
-    public void addReservation(Reservation reservation) { reservations.add(reservation); }
-    public void removeReservation(Reservation reservation) { reservations.remove(reservation); }
-    public void setReservation(int index, Reservation reservation) { reservations.set(index, reservation); }
-
-
-    // invoice
-    private ArrayList<Invoice> invoices = new ArrayList<Invoice>();
-
-    public ArrayList<Invoice> getInvoices() { return invoices; }
-    public void addInvoices(Invoice invoice) { invoices.add(invoice); }
-    public void removeInvoice(Invoice invoice) { invoices.remove(invoice); }
-    public void setInvoice(int index, Invoice invoice) { invoices.set(index, invoice); }
-
-
-    //admins
-    private ArrayList<Admin> admins = new ArrayList<Admin>();
-
-    public ArrayList<Admin> getAdmins() {return admins;}
-    public void addAdmins(Admin admin) { admins.add(admin); }
-    public void removeAdmins(Admin admin) { admins.remove(admin); }
-    public void setAdmin(int index, Admin admin) { admins.set(index, admin); }
-
-
-    //receptionist
-    private ArrayList<Receptionist> receptionists = new ArrayList<Receptionist>();
-
-    public ArrayList<Receptionist> getReceptionists() {return receptionists;}
-    public void addReceptionist(Receptionist receptionist) { receptionists.add(receptionist); }
-    public void removeReceptionist(Receptionist receptionist) { receptionists.remove(receptionist); }
-    public void setReceptionist(int index, Receptionist receptionist) { receptionists.set(index, receptionist); }
-
-
-
-
-
-
-    public HotelDatabase() { }
-
-    public void populateData() throws Exception{
-        Amenity wifi = new Amenity("Wifi",1111,"a wireless networking technology using radio waves" , 20 );
-        Amenity tv = new Amenity("TV",1112,"a device with a screen for receiving television signals.",100);
-        Amenity gym = new Amenity("GYM",1113,"an indoor venue for exercise and sports",60);
-
-
-        addAmenity(wifi);
-        addAmenity(tv);
-        addAmenity(gym);
-
-
-        Guest g1 = new Guest("Ali Sadek","as173_g1", LocalDate.of(2007, 01, 28), "Cairo","Add extra pillows and blankets",100, Guest.Gender.MALE);
-        Guest g2 = new Guest("Khaled Sorour","ks548_g2", LocalDate.of(2007, 07, 1),"Menofiya","Use quiet AC units",500, Guest.Gender.MALE);
-        Guest g3 =new Guest("Mahmoud Fayed","mf784_g3",LocalDate.of(2009, 01, 04),"Giza","Ensure a light switch is next to the bed",200, Guest.Gender.MALE);
-
-
-
-
-        ArrayList<Amenity> room101Amenities = new ArrayList<>();
-        room101Amenities.add(wifi);
-        room101Amenities.add(tv);
-        Room r1 = new Room(101, "Single", room101Amenities, 100.00);
-
-
-        ArrayList<Amenity> room102Amenities = new ArrayList<>();
-        room102Amenities.add(wifi);
-        room102Amenities.add(tv);
-        room102Amenities.add(gym);
-        Room r2 = new Room(102, "Double", room102Amenities, 200.00);
-
-
-        ArrayList<Amenity> room103Amenities = new ArrayList<>();
-        room103Amenities.add(wifi);
-        Room r3 = new Room(103, "Single", room103Amenities, 100.00);
-
-
-        addRoom(r1);
-        addRoom(r2);
-        addRoom(r3);
-
-
-        Reservation res1 = new Reservation(g1,r1,LocalDate.of(2026,06,12),LocalDate.of(2026,06,15));
-        Reservation res2 = new Reservation(g2,r2,LocalDate.of(2026,07,02),LocalDate.of(2026,07,07));
-
-
-
-        addReservation(res1);
-        addReservation(res2);
-
-
-        Admin a1 = new Admin("Mark Eham","me854_a1",LocalDate.of(1998,02,27),8);
-        Admin a2 = new Admin("Mohamed Khaled ","mk963_a2",LocalDate.of(1994,05,14),7);
-        Admin a3 = new Admin("Tamer Elgayar","tg111_a3",LocalDate.of(1974,8,06),6);
-
-
-
-
-
-
-        Invoice i1 = new Invoice(20,LocalDate.of(2026,06,16));
-        Invoice i2 = new Invoice(10,LocalDate.of(2026,07,18));
-        Invoice i3 = new Invoice(30,LocalDate.of(2026,07,20));
-
-
-        addInvoices(i1);
-        addInvoices(i2);
-        addInvoices(i3);
-
-
-
-
-        Receptionist receptionist1 = new Receptionist("Fares el Assab","fa911_rece1",LocalDate.of(2001,5,13),8);
-        Receptionist receptionist2 = new Receptionist("hossam mowafi","hm912_rece2",LocalDate.of(2000,9,30),7);
-        Receptionist receptionist3 = new Receptionist("Mohamed Magdy","mm913_rece3",LocalDate.of(1999,7,21),6);
-
-
-    }
-
-
-
 }
+
 
 
