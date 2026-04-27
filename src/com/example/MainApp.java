@@ -12,13 +12,11 @@ import static javafx.application.Application.launch;
 public class MainApp extends Application{
 
 
+    @Override
     public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("scene.fxml"));
-
-        Scene scene = new Scene(root);
-        scene.getStylesheets().add(getClass().getResource("styles.css").toExternalForm());
-
-        stage.setTitle("JavaFX");
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("login.fxml"));
+        Scene scene = new Scene(loader.load());
+        stage.setTitle("Hotel Reservation System");
         stage.setScene(scene);
         stage.show();
     }
