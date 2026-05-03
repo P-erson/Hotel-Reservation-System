@@ -1,6 +1,5 @@
-package com.example;
+package com.example.Classes;
 
-import com.example.Exceptions.GuestNotFoundException;
 import com.example.Exceptions.RoomNotAvailableException;
 
 import java.time.LocalDate;
@@ -8,20 +7,9 @@ import java.time.LocalDate;
 public class Receptionist extends Staff {
     public Receptionist(String username, String password, LocalDate dateOfBirth, int workingHours) throws Exception{
         super(username, password, dateOfBirth, Role.RECEPTIONIST, workingHours);
+        super.setUserType("RECEPTIONIST");
 
-        DATABASE.addReceptionist(this);
-    }
-    public void registerGuest(String username, String password, LocalDate dob, String address, String prefs, double balance, Guest.Gender gender) throws Exception {
-
-        new Guest(username, password, dob, address, prefs, balance, gender);
-    }
-
-    public Guest searchGuest(String username, String password) throws GuestNotFoundException {
-        Guest guest = DATABASE.searchGuest(username, password);
-        if (guest == null) {
-            throw new GuestNotFoundException(username);
-        }
-        return guest;
+        HotelDatabase.instance.addReceptionist(this);
     }
 
 
@@ -32,7 +20,7 @@ public class Receptionist extends Staff {
         }
 
         Reservation newRes = new Reservation(guest, room, checkIn, checkOut);
-        DATABASE.addReservation(newRes);
+        HotelDatabase.instance.addReservation(newRes);
         return newRes;
     }
 

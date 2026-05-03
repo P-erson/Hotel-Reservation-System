@@ -1,13 +1,12 @@
-package com.example;
+package com.example.Classes;
+
+import com.example.Exceptions.InvalidBalanceException;
+import com.example.Exceptions.InvalidPaymentException;
+import com.example.Exceptions.RoomNotAvailableException;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
-
-import com.example.Exceptions.GuestNotFoundException;
-import com.example.Exceptions.InvalidBalanceException;
-import com.example.Exceptions.InvalidPaymentException;
-import com.example.Exceptions.RoomNotAvailableException;
 
 public class Guest extends User{
 
@@ -97,35 +96,14 @@ public class Guest extends User{
         this.setRoomPreferences(roomPreferences);
         this.setBalance(balance);
         this.setGender(gender);
+        super.setUserType("GUEST");
 
-        DATABASE.addGuest(this);
+        HotelDatabase.instance.addGuest(this);
     }
 
 
-    // this method returns a Guest object including all the guest info.
-    //since in 2nd milestone when we implement this
-    //we want the system to show the info of this specific guest
-    public static Guest login(String username, String password) throws GuestNotFoundException
-    {
-        if(DATABASE.searchGuest(username, password) == null)
-            throw new GuestNotFoundException(username);
-        else
-            return DATABASE.searchGuest(username, password);
 
-    }
 
-    public ArrayList<Room> viewAvailableRooms()
-    {
-        ArrayList<Room> availableRooms = new ArrayList<Room>();
-        for(int i = 0; i< DATABASE.getRooms().size(); i++ )
-        {
-            if(DATABASE.getRooms().get(i).isAvailable())
-            {
-              availableRooms.add(DATABASE.getRooms().get(i) );
-            }
-        }
-        return availableRooms;
-    }
 
     public Reservation makeReservation(Room room, LocalDate checkIn, LocalDate checkOut) throws RoomNotAvailableException
     {
@@ -135,7 +113,7 @@ public class Guest extends User{
         if(room.isAvailable())
         {
             Reservation reservation = new Reservation(this, room, checkIn, checkOut);
-            DATABASE.addReservation(reservation);
+            HotelDatabase.instance.addReservation(reservation);
             return reservation;
         }
         else
@@ -145,18 +123,18 @@ public class Guest extends User{
     public ArrayList<Reservation> viewReservations()
     {
         ArrayList<Reservation> viewReservationsArray = new ArrayList<Reservation>();
-        for(int i = 0; i< DATABASE.getReservations().size(); i++ )
+        for(int i = 0; i< HotelDatabase.instance.getReservations().size(); i++ )
         {
-            if(DATABASE.getReservations().get(i).getGuest().getUsername().equals(this.getUsername()) )
+            if(HotelDatabase.instance.getReservations().get(i).getGuest().getUsername().equals(this.getUsername()) )
             {
-                viewReservationsArray.add(DATABASE.getReservations().get(i));
+                viewReservationsArray.add(HotelDatabase.instance.getReservations().get(i));
             }
         }
         return viewReservationsArray;
     }
 
     public void cancelReservation(int roomNumber){
-        ArrayList<Reservation> viewReservationsArray = DATABASE.getReservations();
+        ArrayList<Reservation> viewReservationsArray = HotelDatabase.instance.getReservations();
         for(int i = 0; i< viewReservationsArray.size(); i++ )
         {
             if(viewReservationsArray.get(i).getGuest().getUsername().equals(this.getUsername()) &&
@@ -169,7 +147,7 @@ public class Guest extends User{
     }
 
     public Invoice checkout(int roomNumber, Invoice.PaymentMethod paymentMethod) throws InvalidPaymentException, InvalidBalanceException {
-        ArrayList<Reservation> viewReservationsArray = DATABASE.getReservations();
+        ArrayList<Reservation> viewReservationsArray = HotelDatabase.instance.getReservations();
         Reservation reservation = new Reservation();
         for(int i = 0; i< viewReservationsArray.size(); i++ )
         {
@@ -193,7 +171,7 @@ public class Guest extends User{
         this.setBalance(this.getBalance() - total);
         reservation.setStatus(Reservation.ReservationStatus.COMPLETED);
         reservation.getRoom().setAvailable(true);
-        DATABASE.addInvoices(invoice);
+        HotelDatabase.instance.addInvoices(invoice);
         return invoice;
 
 

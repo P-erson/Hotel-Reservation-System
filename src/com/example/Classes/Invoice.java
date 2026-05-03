@@ -1,4 +1,4 @@
-package com.example;
+package com.example.Classes;
 
 import java.time.LocalDate;
 import java.util.ArrayList;

@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/17"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.hotel.ReceptionistDashboardController"
+            style="-fx-background-color: #1a1a2e;">
+
+    <!-- TOP NAV -->
+    <top>
+        <HBox alignment="CENTER_LEFT" spacing="20"
+              style="-fx-background-color: #16213e; -fx-padding: 14 24; -fx-effect: dropshadow(gaussian, #00000088, 10, 0, 0, 2);">
+            <Label text=" Grand Hotel" style="-fx-font-size: 20px; -fx-text-fill: #e8c97e; -fx-font-weight: bold;"/>
+            <Label text="RECEPTIONIST" style="-fx-font-size: 10px; -fx-text-fill: white; -fx-background-color: #5bc8af44; -fx-padding: 2 8; -fx-background-radius: 4;"/>
+            <Pane HBox.hgrow="ALWAYS"/>
+            <Label fx:id="receptionistNameLabel" text="Receptionist" style="-fx-text-fill: #c0c0d8; -fx-font-size: 13px;"/>
+            <Button text="Logout" onAction="#handleLogout"
+                    style="-fx-background-color: transparent; -fx-text-fill: #ff6b6b; -fx-border-color: #ff6b6b; -fx-border-radius: 4; -fx-cursor: hand; -fx-padding: 6 14;"/>
+        </HBox>
+    </top>
+
+    <!-- SIDEBAR -->
+    <left>
+        <VBox spacing="4" style="-fx-background-color: #16213e; -fx-padding: 20 10; -fx-pref-width: 210px;">
+            <Label text="MENU" style="-fx-text-fill: #555580; -fx-font-size: 11px; -fx-font-weight: bold; -fx-padding: 0 10 8 10;"/>
+            <Button text="    Dashboard" maxWidth="Infinity" onAction="#showDashboard"
+                    style="-fx-background-color: #0f3460; -fx-text-fill: #e8c97e; -fx-alignment: CENTER_LEFT; -fx-background-radius: 6; -fx-padding: 10 14; -fx-cursor: hand;"/>
+            <Button text="    Check-In Guest" maxWidth="Infinity" onAction="#showCheckIn"
+                    style="-fx-background-color: transparent; -fx-text-fill: #c0c0d8; -fx-alignment: CENTER_LEFT; -fx-background-radius: 6; -fx-padding: 10 14; -fx-cursor: hand;"/>
+            <Button text="    Check-Out Guest" maxWidth="Infinity" onAction="#showCheckOut"
+                    style="-fx-background-color: transparent; -fx-text-fill: #c0c0d8; -fx-alignment: CENTER_LEFT; -fx-background-radius: 6; -fx-padding: 10 14; -fx-cursor: hand;"/>
+            <Button text="    Walk-In Booking" maxWidth="Infinity" onAction="#showWalkIn"
+                    style="-fx-background-color: transparent; -fx-text-fill: #c0c0d8; -fx-alignment: CENTER_LEFT; -fx-background-radius: 6; -fx-padding: 10 14; -fx-cursor: hand;"/>
+            <Button text="    All Reservations" maxWidth="Infinity" onAction="#showAllReservations"
+                    style="-fx-background-color: transparent; -fx-text-fill: #c0c0d8; -fx-alignment: CENTER_LEFT; -fx-background-radius: 6; -fx-padding: 10 14; -fx-cursor: hand;"/>
+        </VBox>
+    </left>
+
+    <!-- MAIN CONTENT -->
+    <center>
+        <VBox spacing="20" style="-fx-padding: 30;">
+            <Label text="Receptionist Dashboard" style="-fx-font-size: 22px; -fx-text-fill: white; -fx-font-weight: bold;"/>
+
+            <!-- STATS -->
+            <HBox spacing="16">
+                <VBox spacing="6" HBox.hgrow="ALWAYS" style="-fx-background-color: #16213e; -fx-padding: 20; -fx-background-radius: 10;">
+                    <Label text=" Check-Ins Today" style="-fx-text-fill: #a0a0c0; -fx-font-size: 12px;"/>
+                    <Label fx:id="checkInsLabel" text="0" style="-fx-text-fill: #5bc8af; -fx-font-size: 22px; -fx-font-weight: bold;"/>
+                </VBox>
+                <VBox spacing="6" HBox.hgrow="ALWAYS" style="-fx-background-color: #16213e; -fx-padding: 20; -fx-background-radius: 10;">
+                    <Label text=" Check-Outs Today" style="-fx-text-fill: #a0a0c0; -fx-font-size: 12px;"/>
+                    <Label fx:id="checkOutsLabel" text="0" style="-fx-text-fill: #ff6b6b; -fx-font-size: 22px; -fx-font-weight: bold;"/>
+                </VBox>
+                <VBox spacing="6" HBox.hgrow="ALWAYS" style="-fx-background-color: #16213e; -fx-padding: 20; -fx-background-radius: 10;">
+                    <Label text=" Walk-Ins Today" style="-fx-text-fill: #a0a0c0; -fx-font-size: 12px;"/>
+                    <Label fx:id="walkInsLabel" text="0" style="-fx-text-fill: #e8c97e; -fx-font-size: 22px; -fx-font-weight: bold;"/>
+                </VBox>
+            </HBox>
+
+            <!-- QUICK ACTIONS -->
+            <Label text="Quick Actions" style="-fx-font-size: 15px; -fx-text-fill: #a0a0c0; -fx-font-weight: bold;"/>
+            <HBox spacing="12">
+                <Button text=" Check-In Guest" onAction="#showCheckIn"
+                        style="-fx-background-color: #5bc8af; -fx-text-fill: #1a1a2e; -fx-font-weight: bold; -fx-background-radius: 6; -fx-padding: 12 20; -fx-cursor: hand;"/>
+                <Button text=" Check-Out Guest" onAction="#showCheckOut"
+                        style="-fx-background-color: #e8c97e; -fx-text-fill: #1a1a2e; -fx-font-weight: bold; -fx-background-radius: 6; -fx-padding: 12 20; -fx-cursor: hand;"/>
+                <Button text=" Walk-In Booking" onAction="#showWalkIn"
+                        style="-fx-background-color: #0f3460; -fx-text-fill: white; -fx-background-radius: 6; -fx-padding: 12 20; -fx-cursor: hand;"/>
+            </HBox>
+
+            <!-- TODAY'S ARRIVALS TABLE -->
+            <Label text="Today's Arrivals" style="-fx-font-size: 15px; -fx-text-fill: #a0a0c0; -fx-font-weight: bold;"/>
+            <TableView fx:id="arrivalsTable" VBox.vgrow="ALWAYS"
+                       style="-fx-background-color: #16213e; -fx-border-color: transparent; -fx-background-radius: 10;">
+                <columns>
+                    <TableColumn fx:id="colResId" text="Res. ID" prefWidth="80"/>
+                    <TableColumn fx:id="colGuestName" text="Guest Name" prefWidth="150"/>
+                    <TableColumn fx:id="colRoom" text="Room" prefWidth="90"/>
+                    <TableColumn fx:id="colCheckOut" text="Check-Out" prefWidth="120"/>
+                    <TableColumn fx:id="colStatus" text="Status" prefWidth="120"/>
+                    <TableColumn fx:id="colAction" text="Action" prefWidth="120"/>
+                </columns>
+                <placeholder>
+                    <Label text="No arrivals scheduled for today." style="-fx-text-fill: #555580;"/>
+                </placeholder>
+            </TableView>
+        </VBox>
+    </center>
+</BorderPane>

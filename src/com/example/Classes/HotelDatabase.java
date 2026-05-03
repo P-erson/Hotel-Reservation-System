@@ -1,4 +1,4 @@
-package com.example;
+package com.example.Classes;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -7,7 +7,7 @@ public class HotelDatabase {
     public RoomType ROOM_TYPES = new RoomType();
 
     // amenties
-    private ArrayList<Amenity> amenities = new ArrayList<Amenity>();
+    private final ArrayList<Amenity> amenities = new ArrayList<Amenity>();
 
     public ArrayList<Amenity> getAmenities() { return amenities; }
     public void addAmenity(Amenity amenity) { amenities.add(amenity); }
@@ -16,25 +16,20 @@ public class HotelDatabase {
 
     
     // guests
-    private ArrayList<Guest> guests = new ArrayList<Guest>();
+    private final ArrayList<Guest> guests = new ArrayList<Guest>();
 
     public ArrayList<Guest> getGuests() { return guests; }
-    public void addGuest(Guest guest) { guests.add(guest); }
+    public void addGuest(Guest guest) {
+        guests.add(guest);
+        users.add(guest);
+    }
     public void removeGuest(Guest guest) { guests.remove(guest); }
     public void setGuest(int index, Guest guest) { guests.set(index, guest); }
-    public Guest searchGuest(String username, String password)
-    {
-        for(int i = 0; i < guests.size(); i++ )
-        {
-            if(guests.get(i).getUsername().equals(username) && guests.get(i).getPassword().equals(password))
-                return guests.get(i);
-        }
-        return null;
-    }
+
 
 
     // rooms
-    private ArrayList<Room> rooms = new ArrayList<Room>();
+    private final ArrayList<Room> rooms = new ArrayList<Room>();
 
     public ArrayList<Room> getRooms() { return rooms; }
     public void addRoom(Room room) { rooms.add(room); }
@@ -43,7 +38,7 @@ public class HotelDatabase {
 
     
     // reservations
-    private ArrayList<Reservation> reservations = new ArrayList<Reservation>();
+    private final ArrayList<Reservation> reservations = new ArrayList<Reservation>();
 
     public ArrayList<Reservation> getReservations() { return reservations; }
     public void addReservation(Reservation reservation) { reservations.add(reservation); }
@@ -52,7 +47,7 @@ public class HotelDatabase {
     
     
     // invoice
-    private ArrayList<Invoice> invoices = new ArrayList<Invoice>();
+    private final ArrayList<Invoice> invoices = new ArrayList<Invoice>();
 
     public ArrayList<Invoice> getInvoices() { return invoices; }
     public void addInvoices(Invoice invoice) { invoices.add(invoice); }
@@ -61,28 +56,55 @@ public class HotelDatabase {
 
 
     //admins
-    private ArrayList<Admin> admins = new ArrayList<Admin>();
+    private final ArrayList<Admin> admins = new ArrayList<Admin>();
 
     public ArrayList<Admin> getAdmins() {return admins;}
-    public void addAdmins(Admin admin) { admins.add(admin); }
+    public void addAdmins(Admin admin) {
+        admins.add(admin);
+        users.add(admin);
+    }
     public void removeAdmins(Admin admin) { admins.remove(admin); }
     public void setAdmin(int index, Admin admin) { admins.set(index, admin); }
 
 
     //receptionist
-    private ArrayList<Receptionist> receptionists = new ArrayList<Receptionist>();
+    private final ArrayList<Receptionist> receptionists = new ArrayList<Receptionist>();
 
     public ArrayList<Receptionist> getReceptionists() {return receptionists;}
-    public void addReceptionist(Receptionist receptionist) { receptionists.add(receptionist); }
+    public void addReceptionist(Receptionist receptionist) {
+        receptionists.add(receptionist);
+        users.add(receptionist);
+    }
     public void removeReceptionist(Receptionist receptionist) { receptionists.remove(receptionist); }
     public void setReceptionist(int index, Receptionist receptionist) { receptionists.set(index, receptionist); }
 
 
+    // user
+    private final ArrayList<User> users = new ArrayList<User>();
+    public User searchUser(String username, String password)
+    {
+        for (User user : users) {
+            if (user.getUsername().equals(username) && user.getPassword().equals(password))
+                return user;
+        }
+        return null;
+    }
 
+    public static HotelDatabase instance;
 
+    static {
+        try {
+            instance = new HotelDatabase();
+        } catch (Exception e) {
+            System.err.println("Failed to initialize HotelDatabase:");
+            e.printStackTrace();
+        }
+    }
 
-
-    public HotelDatabase() { }
+    public HotelDatabase() throws Exception { 
+        HotelDatabase.instance = this;
+        this.populateData(); 
+    }
 
     public void populateData() throws Exception{
         Amenity wifi = new Amenity("Wifi",1111,"a wireless networking technology using radio waves" , 20 );
@@ -90,9 +112,9 @@ public class HotelDatabase {
         Amenity gym = new Amenity("GYM",1113,"an indoor venue for exercise and sports",60);
 
 
-        addAmenity(wifi);
-        addAmenity(tv);
-        addAmenity(gym);
+        this.addAmenity(wifi);
+        this.addAmenity(tv);
+        this.addAmenity(gym);
 
 
         Guest g1 = new Guest("Ali Sadek","as173_g1", LocalDate.of(2007, 01, 28), "Cairo","Add extra pillows and blankets",100, Guest.Gender.MALE);
@@ -100,9 +122,9 @@ public class HotelDatabase {
         Guest g3 =new Guest("Mahmoud Fayed","mf784_g3",LocalDate.of(2009, 01, 04),"Giza","Ensure a light switch is next to the bed",200, Guest.Gender.MALE);
 
 
-        addGuest(g1);
-        addGuest(g2);
-        addGuest(g3);
+        this.addGuest(g1);
+        this.addGuest(g2);
+        this.addGuest(g3);
 
 
         ArrayList<Amenity> room101Amenities = new ArrayList<>();
@@ -123,9 +145,9 @@ public class HotelDatabase {
         Room r3 = new Room(103, "Single", room103Amenities, 100.00);
 
 
-        addRoom(r1);
-        addRoom(r2);
-        addRoom(r3);
+        this.addRoom(r1);
+        this.addRoom(r2);
+        this.addRoom(r3);
 
 
         Reservation res1 = new Reservation(g1,r1,LocalDate.of(2026,06,12),LocalDate.of(2026,06,15));
@@ -133,18 +155,18 @@ public class HotelDatabase {
 
 
 
-        addReservation(res1);
-        addReservation(res2);
+        this.addReservation(res1);
+        this.addReservation(res2);
 
 
         Admin a1 = new Admin("Mark Eham","me854_a1",LocalDate.of(1998,02,27),8);
         Admin a2 = new Admin("Mohamed Khaled ","mk963_a2",LocalDate.of(1994,05,14),7);
-        Admin a3 = new Admin("Tamer Elgayar","tg111_a3",LocalDate.of(1974,8,06),6);
+        Admin a3 = new Admin(".",".",LocalDate.of(1974,8,06),6);
 
 
-        addAdmins(a1);
-        addAdmins(a2);
-        addAdmins(a3);
+        this.addAdmins(a1);
+        this.addAdmins(a2);
+        this.addAdmins(a3);
 
 
 
@@ -154,9 +176,9 @@ public class HotelDatabase {
         Invoice i3 = new Invoice(30,LocalDate.of(2026,07,20));
 
 
-        addInvoices(i1);
-        addInvoices(i2);
-        addInvoices(i3);
+        this.addInvoices(i1);
+        this.addInvoices(i2);
+        this.addInvoices(i3);
 
 
 
@@ -166,9 +188,9 @@ public class HotelDatabase {
         Receptionist receptionist3 = new Receptionist("Mohamed Magdy","mm913_rece3",LocalDate.of(1999,7,21),6);
 
 
-        addReceptionist(receptionist1);
-        addReceptionist(receptionist2);
-        addReceptionist(receptionist3);
+        this.addReceptionist(receptionist1);
+        this.addReceptionist(receptionist2);
+        this.addReceptionist(receptionist3);
     }
 
 

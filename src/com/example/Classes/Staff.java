@@ -1,10 +1,12 @@
-package com.example;
+package com.example.Classes;
 
 import com.example.Exceptions.InvalidRole;
 import com.example.Exceptions.WorkingHoursOutOfRangeException;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+
+
 
 public abstract class Staff extends User{
     private Role role;
@@ -33,7 +35,7 @@ public abstract class Staff extends User{
             throw new InvalidRole(role);
         }
     }
-    public void setWorkingHours(int workingHours) throws WorkingHoursOutOfRangeException{
+    public void setWorkingHours(int workingHours) throws WorkingHoursOutOfRangeException {
         if (workingHours <= 12 && workingHours > 0){
             this.workingHours = workingHours;
         } else {
@@ -42,10 +44,12 @@ public abstract class Staff extends User{
         
     }
 
+
+    public void setUserType(String userType) throws Exception{
+        super.setUserType(userType);
+    }
+
     //Getters
-    public String getUsername(){ return super.getUsername(); }
-    public String getPassword(){ return super.getPassword(); }
-    public LocalDate getDateOfBirth(){ return super.getDateOfBirth(); }
     public Role getRole(){ return role; }
     public int getWorkingHours(){ return workingHours; }
 }

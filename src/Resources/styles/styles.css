@@ -1,0 +1,7 @@
+.label {
+    -fx-text-fill: blue;
+}
+
+.vbox_style {
+    border-style: solid;
+}

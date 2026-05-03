@@ -1,5 +1,6 @@
-package com.example;
+package com.example.Controllers;
 
+import com.example.Classes.Guest;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -7,7 +8,7 @@ import javafx.scene.control.*;
 import javafx.stage.Stage;
 import java.time.LocalDate;
 
-public class RegisterController {
+public class Register {
 
     @FXML private TextField usernameField;
     @FXML private PasswordField passwordField;
