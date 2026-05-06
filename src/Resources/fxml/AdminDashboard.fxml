@@ -1,3 +1,4 @@
+<!--
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
@@ -9,7 +10,7 @@
             fx:controller="com.hotel.AdminDashboardController"
             style="-fx-background-color: #1a1a2e;">
 
-    <!-- TOP NAV -->
+    &lt;!&ndash; TOP NAV &ndash;&gt;
     <top>
         <HBox alignment="CENTER_LEFT" spacing="20"
               style="-fx-background-color: #16213e; -fx-padding: 14 24; -fx-effect: dropshadow(gaussian, #00000088, 10, 0, 0, 2);">
@@ -22,7 +23,7 @@
         </HBox>
     </top>
 
-    <!-- SIDEBAR -->
+    &lt;!&ndash; SIDEBAR &ndash;&gt;
     <left>
         <VBox spacing="4" style="-fx-background-color: #16213e; -fx-padding: 20 10; -fx-pref-width: 210px;">
             <Label text="ADMIN MENU" style="-fx-text-fill: #555580; -fx-font-size: 11px; -fx-font-weight: bold; -fx-padding: 0 10 8 10;"/>
@@ -39,12 +40,12 @@
         </VBox>
     </left>
 
-    <!-- MAIN CONTENT -->
+    &lt;!&ndash; MAIN CONTENT &ndash;&gt;
     <center>
         <VBox spacing="20" style="-fx-padding: 30;">
             <Label text="Admin Dashboard" style="-fx-font-size: 22px; -fx-text-fill: white; -fx-font-weight: bold;"/>
 
-            <!-- STATS CARDS -->
+            &lt;!&ndash; STATS CARDS &ndash;&gt;
             <HBox spacing="16">
                 <VBox spacing="6" HBox.hgrow="ALWAYS" style="-fx-background-color: #16213e; -fx-padding: 20; -fx-background-radius: 10;">
                     <Label text=" Total Rooms" style="-fx-text-fill: #a0a0c0; -fx-font-size: 12px;"/>
@@ -64,7 +65,7 @@
                 </VBox>
             </HBox>
 
-            <!-- QUICK ACTIONS -->
+            &lt;!&ndash; QUICK ACTIONS &ndash;&gt;
             <Label text="Quick Actions" style="-fx-font-size: 15px; -fx-text-fill: #a0a0c0; -fx-font-weight: bold;"/>
             <HBox spacing="12">
                 <Button text=" Add Staff Member" onAction="#showStaffManagement"
@@ -75,7 +76,7 @@
                         style="-fx-background-color: #0f3460; -fx-text-fill: white; -fx-background-radius: 6; -fx-padding: 12 20; -fx-cursor: hand;"/>
             </HBox>
 
-            <!-- RECENT RESERVATIONS -->
+            &lt;!&ndash; RECENT RESERVATIONS &ndash;&gt;
             <Label text="Recent Reservations (All Guests)" style="-fx-font-size: 15px; -fx-text-fill: #a0a0c0; -fx-font-weight: bold;"/>
             <TableView fx:id="recentTable" VBox.vgrow="ALWAYS"
                        style="-fx-background-color: #16213e; -fx-border-color: transparent; -fx-background-radius: 10;">
@@ -91,3 +92,4 @@
         </VBox>
     </center>
 </BorderPane>
+-->

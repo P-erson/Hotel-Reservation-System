@@ -1,7 +1,6 @@
 package com.example.Controllers;
 
 import com.example.Classes.HotelDatabase;
-import com.example.Classes.User;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 

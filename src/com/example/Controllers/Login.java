@@ -1,6 +1,5 @@
 package com.example.Controllers;
 
-import com.example.Classes.Guest;
 import com.example.Classes.User;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
