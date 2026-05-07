@@ -192,6 +192,8 @@ public class HotelDatabase {
         this.addReceptionist(receptionist2);
         this.addReceptionist(receptionist3);
     }
+    
+
 
 
 

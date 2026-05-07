@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.example.Controllers.DashboardController"
+            prefHeight="720.0" prefWidth="1200.0"
+            styleClass="main-background"
+            stylesheets="@../styles/styles.css">
+
+    <!-- SIDEBAR -->
+    <left>
+        <VBox styleClass="sidebar" spacing="0">
+
+            <!-- Hotel branding in sidebar -->
+            <VBox alignment="CENTER" spacing="6" style="-fx-padding: 32px 20px 28px 20px;
+                  -fx-border-color: transparent transparent rgba(197,160,60,0.2) transparent;
+                  -fx-border-width: 0 0 1px 0;">
+                <Label text="✦" style="-fx-font-size: 24px; -fx-text-fill: #C5A03C;"/>
+                <Label text="AZURE GRAND" style="-fx-font-size: 13px; -fx-font-weight: bold;
+                       -fx-text-fill: #FFFFFF; -fx-font-family: Georgia;"/>
+                <Label text="H O T E L" style="-fx-font-size: 9px; -fx-text-fill: #C5A03C;
+                       -fx-font-family: Georgia; -fx-letter-spacing: 3px;"/>
+            </VBox>
+
+            <!-- Guest info mini card -->
+            <VBox alignment="CENTER" spacing="4" style="-fx-padding: 20px 16px;
+                  -fx-border-color: transparent transparent rgba(197,160,60,0.12) transparent;
+                  -fx-border-width: 0 0 1px 0;">
+                <Label text="👤" style="-fx-font-size: 20px;"/>
+                <Label fx:id="sidebarNameLabel" text="Guest Name"
+                       style="-fx-text-fill: #FFFFFF; -fx-font-size: 13px; -fx-font-family: Georgia; -fx-font-weight: bold;"/>
+                <Label fx:id="sidebarBalanceLabel" text="Balance: 0.00"
+                       style="-fx-text-fill: #C5A03C; -fx-font-size: 11px; -fx-font-family: Georgia;"/>
+            </VBox>
+
+            <!-- Navigation -->
+            <VBox spacing="2" style="-fx-padding: 16px 0;">
+                <Label text="NAVIGATION" style="-fx-text-fill: #3A5A6A; -fx-font-size: 10px;
+                       -fx-font-family: Georgia; -fx-padding: 0 24px 8px 24px; -fx-letter-spacing: 2px;"/>
+
+                <Button fx:id="navDashboard" text="⊞  Dashboard"
+                        styleClass="nav-button-active" onAction="#showDashboard"/>
+                <Button text="🛏  Browse Rooms"
+                        styleClass="nav-button" onAction="#navigateToRooms"/>
+                <Button text="📋  My Reservations"
+                        styleClass="nav-button" onAction="#navigateToReservations"/>
+                <Button text="💳  Checkout"
+                        styleClass="nav-button" onAction="#navigateToCheckout"/>
+            </VBox>
+
+            <!-- Spacer -->
+            <Region VBox.vgrow="ALWAYS"/>
+
+            <!-- Logout -->
+            <VBox style="-fx-padding: 16px;
+                  -fx-border-color: rgba(197,160,60,0.15) transparent transparent transparent;
+                  -fx-border-width: 1px 0 0 0;">
+                <Button text="⎋  Sign Out" styleClass="secondary-button"
+                        prefWidth="208" onAction="#handleLogout"/>
+            </VBox>
+
+        </VBox>
+    </left>
+
+    <!-- MAIN CONTENT -->
+    <center>
+        <VBox style="-fx-background-color: #0B1520;">
+
+            <!-- Top header bar -->
+            <HBox styleClass="header-bar" alignment="CENTER_LEFT" spacing="0">
+                <VBox spacing="2" HBox.hgrow="ALWAYS">
+                    <Label text="Guest Dashboard" style="-fx-text-fill: #FFFFFF; -fx-font-size: 18px;
+                           -fx-font-weight: bold; -fx-font-family: Georgia;"/>
+                    <Label text="Welcome back to Azure Grand" styleClass="subtitle-label"/>
+                </VBox>
+                <Label fx:id="dateLabel" text="May 2026"
+                       style="-fx-text-fill: #6A8A9A; -fx-font-size: 12px; -fx-font-family: Georgia;"/>
+            </HBox>
+
+            <!-- Dashboard content -->
+            <ScrollPane fitToWidth="true" VBox.vgrow="ALWAYS"
+                        style="-fx-background-color: transparent; -fx-background: transparent; -fx-border-width: 0;">
+                <VBox spacing="24" style="-fx-padding: 28px; -fx-background-color: transparent;">
+
+                    <!-- Welcome banner -->
+                    <VBox styleClass="card" spacing="6">
+                        <HBox alignment="CENTER_LEFT" spacing="16">
+                            <VBox spacing="4" HBox.hgrow="ALWAYS">
+                                <Label fx:id="welcomeLabel" text="Good Evening, Guest!"
+                                       styleClass="welcome-text"/>
+                                <Label text="Here's a summary of your account at Azure Grand."
+                                       styleClass="subtitle-label"/>
+                            </VBox>
+                            <Label text="✦" style="-fx-font-size: 32px; -fx-text-fill: rgba(197,160,60,0.3);"/>
+                        </HBox>
+                    </VBox>
+
+                    <!-- Stats row -->
+                    <HBox spacing="16">
+                        <VBox styleClass="stat-card" spacing="6" alignment="CENTER" HBox.hgrow="ALWAYS">
+                            <Label text="💰" style="-fx-font-size: 22px;"/>
+                            <Label fx:id="balanceStatLabel" text="0.00" styleClass="stat-number"/>
+                            <Label text="Account Balance" styleClass="stat-label"/>
+                        </VBox>
+                        <VBox styleClass="stat-card" spacing="6" alignment="CENTER" HBox.hgrow="ALWAYS">
+                            <Label text="📋" style="-fx-font-size: 22px;"/>
+                            <Label fx:id="reservationCountLabel" text="0" styleClass="stat-number"/>
+                            <Label text="Total Reservations" styleClass="stat-label"/>
+                        </VBox>
+                        <VBox styleClass="stat-card" spacing="6" alignment="CENTER" HBox.hgrow="ALWAYS">
+                            <Label text="✅" style="-fx-font-size: 22px;"/>
+                            <Label fx:id="activeCountLabel" text="0" styleClass="stat-number"/>
+                            <Label text="Active Bookings" styleClass="stat-label"/>
+                        </VBox>
+                        <VBox styleClass="stat-card" spacing="6" alignment="CENTER" HBox.hgrow="ALWAYS">
+                            <Label text="🏨" style="-fx-font-size: 22px;"/>
+                            <Label fx:id="availableRoomsLabel" text="0" styleClass="stat-number"/>
+                            <Label text="Rooms Available" styleClass="stat-label"/>
+                        </VBox>
+                    </HBox>
+
+                    <!-- Profile + Recent Reservations -->
+                    <HBox spacing="16">
+
+                        <!-- Profile Card -->
+                        <VBox styleClass="card" spacing="16" prefWidth="300">
+                            <Label text="My Profile" styleClass="section-title"/>
+                            <Line startX="0" endX="260" stroke="rgba(197,160,60,0.15)" strokeWidth="1"/>
+
+                            <GridPane hgap="12" vgap="10">
+                                <Label text="Username:" styleClass="subtitle-label" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+                                <Label fx:id="profileUsername" text="—" styleClass="label" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+
+                                <Label text="Date of Birth:" styleClass="subtitle-label" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+                                <Label fx:id="profileDob" text="—" styleClass="label" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+
+                                <Label text="Address:" styleClass="subtitle-label" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+                                <Label fx:id="profileAddress" text="—" styleClass="label" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+
+                                <Label text="Gender:" styleClass="subtitle-label" GridPane.columnIndex="0" GridPane.rowIndex="3"/>
+                                <Label fx:id="profileGender" text="—" styleClass="label" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+
+                                <Label text="Preferences:" styleClass="subtitle-label" GridPane.columnIndex="0" GridPane.rowIndex="4"/>
+                                <Label fx:id="profilePreferences" text="—" styleClass="label"
+                                       GridPane.columnIndex="1" GridPane.rowIndex="4"
+                                       wrapText="true" maxWidth="160"/>
+                            </GridPane>
+                        </VBox>
+
+                        <!-- Recent Reservations -->
+                        <VBox styleClass="card" spacing="16" HBox.hgrow="ALWAYS">
+                            <HBox alignment="CENTER_LEFT">
+                                <Label text="Recent Reservations" styleClass="section-title" HBox.hgrow="ALWAYS"/>
+                                <Button text="View All →" styleClass="secondary-button"
+                                        onAction="#navigateToReservations"/>
+                            </HBox>
+                            <Line startX="0" endX="600" stroke="rgba(197,160,60,0.15)" strokeWidth="1"/>
+
+                            <TableView fx:id="reservationsTable" prefHeight="220"
+                                       styleClass="table-view" VBox.vgrow="ALWAYS">
+                                <columns>
+                                    <TableColumn fx:id="roomCol" text="Room" prefWidth="80"/>
+                                    <TableColumn fx:id="typeCol" text="Type" prefWidth="90"/>
+                                    <TableColumn fx:id="checkinCol" text="Check-In" prefWidth="110"/>
+                                    <TableColumn fx:id="checkoutCol" text="Check-Out" prefWidth="110"/>
+                                    <TableColumn fx:id="statusCol" text="Status" prefWidth="100"/>
+                                </columns>
+                                <placeholder>
+                                    <Label text="No reservations yet. Book your first room!"
+                                           style="-fx-text-fill: #6A8A9A; -fx-font-family: Georgia; -fx-font-style: italic;"/>
+                                </placeholder>
+                            </TableView>
+                        </VBox>
+
+                    </HBox>
+
+                    <!-- Quick actions -->
+                    <VBox styleClass="card" spacing="14">
+                        <Label text="Quick Actions" styleClass="section-title"/>
+                        <Line startX="0" endX="1100" stroke="rgba(197,160,60,0.15)" strokeWidth="1"/>
+                        <HBox spacing="14">
+                            <Button text="🛏  Book a Room" styleClass="button" onAction="#navigateToRooms"/>
+                            <Button text="📋  Manage Reservations" styleClass="secondary-button" onAction="#navigateToReservations"/>
+                            <Button text="💳  Checkout" styleClass="secondary-button" onAction="#navigateToCheckout"/>
+                        </HBox>
+                    </VBox>
+
+                </VBox>
+            </ScrollPane>
+        </VBox>
+    </center>
+
+</BorderPane>

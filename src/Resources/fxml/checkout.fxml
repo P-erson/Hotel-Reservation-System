@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.example.Controllers.CheckoutController"
+            prefHeight="720.0" prefWidth="1200.0"
+            styleClass="main-background"
+            stylesheets="@../styles/styles.css">
+
+    <!-- SIDEBAR -->
+    <left>
+        <VBox styleClass="sidebar" spacing="0">
+            <VBox alignment="CENTER" spacing="6" style="-fx-padding: 32px 20px 28px 20px;
+                  -fx-border-color: transparent transparent rgba(197,160,60,0.2) transparent;
+                  -fx-border-width: 0 0 1px 0;">
+                <Label text="✦" style="-fx-font-size: 24px; -fx-text-fill: #C5A03C;"/>
+                <Label text="AZURE GRAND" style="-fx-font-size: 13px; -fx-font-weight: bold; -fx-text-fill: #FFFFFF; -fx-font-family: Georgia;"/>
+                <Label text="H O T E L" style="-fx-font-size: 9px; -fx-text-fill: #C5A03C; -fx-font-family: Georgia;"/>
+            </VBox>
+
+            <VBox spacing="2" style="-fx-padding: 16px 0;">
+                <Label text="NAVIGATION" style="-fx-text-fill: #3A5A6A; -fx-font-size: 10px; -fx-font-family: Georgia; -fx-padding: 0 24px 8px 24px;"/>
+                <Button text="⊞  Dashboard" styleClass="nav-button" onAction="#navigateToDashboard"/>
+                <Button text="🛏  Browse Rooms" styleClass="nav-button" onAction="#navigateToRooms"/>
+                <Button text="📋  My Reservations" styleClass="nav-button" onAction="#navigateToReservations"/>
+                <Button text="💳  Checkout" styleClass="nav-button-active"/>
+            </VBox>
+
+            <Region VBox.vgrow="ALWAYS"/>
+            <VBox style="-fx-padding: 16px; -fx-border-color: rgba(197,160,60,0.15) transparent transparent transparent; -fx-border-width: 1px 0 0 0;">
+                <Button text="⎋  Sign Out" styleClass="secondary-button" prefWidth="208" onAction="#handleLogout"/>
+            </VBox>
+        </VBox>
+    </left>
+
+    <!-- MAIN CONTENT -->
+    <center>
+        <VBox style="-fx-background-color: #0B1520;">
+
+            <!-- Header -->
+            <HBox styleClass="header-bar" alignment="CENTER_LEFT">
+                <VBox spacing="2" HBox.hgrow="ALWAYS">
+                    <Label text="Checkout &amp; Payment" style="-fx-text-fill: #FFFFFF; -fx-font-size: 18px; -fx-font-weight: bold; -fx-font-family: Georgia;"/>
+                    <Label text="Complete your stay at Azure Grand" styleClass="subtitle-label"/>
+                </VBox>
+            </HBox>
+
+            <HBox spacing="24" style="-fx-padding: 28px;" VBox.vgrow="ALWAYS">
+
+                <!-- LEFT: Select reservation -->
+                <VBox spacing="20" prefWidth="520">
+
+                    <!-- Select reservation -->
+                    <VBox styleClass="card" spacing="14">
+                        <Label text="Select Reservation to Check Out" styleClass="section-title"/>
+                        <Line startX="0" endX="480" stroke="rgba(197,160,60,0.15)" strokeWidth="1"/>
+
+                        <TableView fx:id="reservationsTable" prefHeight="220" styleClass="table-view">
+                            <columns>
+                                <TableColumn fx:id="roomCol" text="Room" prefWidth="80"/>
+                                <TableColumn fx:id="checkinCol" text="Check-In" prefWidth="110"/>
+                                <TableColumn fx:id="checkoutCol" text="Check-Out" prefWidth="110"/>
+                                <TableColumn fx:id="statusCol" text="Status" prefWidth="90"/>
+                            </columns>
+                            <placeholder>
+                                <Label text="No active reservations."
+                                       style="-fx-text-fill: #6A8A9A; -fx-font-family: Georgia; -fx-font-style: italic;"/>
+                            </placeholder>
+                        </TableView>
+                    </VBox>
+
+                    <!-- Payment method -->
+                    <VBox styleClass="card" spacing="14">
+                        <Label text="Payment Method" styleClass="section-title"/>
+                        <Line startX="0" endX="480" stroke="rgba(197,160,60,0.15)" strokeWidth="1"/>
+
+                        <VBox spacing="10">
+                            <RadioButton fx:id="cashRadio" text="💵  Cash Payment"
+                                         style="-fx-text-fill: #B8CCD8; -fx-font-family: Georgia; -fx-font-size: 13px;"/>
+                            <RadioButton fx:id="cardRadio" text="💳  Credit Card"
+                                         style="-fx-text-fill: #B8CCD8; -fx-font-family: Georgia; -fx-font-size: 13px;"/>
+                            <RadioButton fx:id="onlineRadio" text="🌐  Online Transfer"
+                                         style="-fx-text-fill: #B8CCD8; -fx-font-family: Georgia; -fx-font-size: 13px;"/>
+                        </VBox>
+
+                        <ChoiceBox fx:id="paymentMethodBox" prefWidth="300" prefHeight="40"
+                                   styleClass="choice-box"/>
+                    </VBox>
+
+                </VBox>
+
+                <!-- RIGHT: Invoice summary -->
+                <VBox spacing="20" HBox.hgrow="ALWAYS">
+
+                    <VBox styleClass="card" spacing="16">
+                        <Label text="Invoice Summary" styleClass="section-title"/>
+                        <Line startX="0" endX="400" stroke="rgba(197,160,60,0.15)" strokeWidth="1"/>
+
+                        <!-- Hotel info -->
+                        <HBox alignment="CENTER_LEFT" spacing="12">
+                            <Label text="✦" style="-fx-font-size: 20px; -fx-text-fill: #C5A03C;"/>
+                            <VBox spacing="2">
+                                <Label text="AZURE GRAND HOTEL" style="-fx-text-fill: #FFFFFF; -fx-font-weight: bold; -fx-font-size: 14px; -fx-font-family: Georgia;"/>
+                                <Label text="Luxury Hospitality Since 2024" styleClass="subtitle-label"/>
+                            </VBox>
+                        </HBox>
+
+                        <Line startX="0" endX="400" stroke="rgba(197,160,60,0.08)" strokeWidth="1"/>
+
+                        <!-- Invoice details -->
+                        <GridPane hgap="16" vgap="10">
+                            <Label text="Guest Name:" styleClass="subtitle-label" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+                            <Label fx:id="invoiceGuestName" text="—" styleClass="label" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+
+                            <Label text="Room Number:" styleClass="subtitle-label" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+                            <Label fx:id="invoiceRoom" text="—" styleClass="label" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+
+                            <Label text="Room Type:" styleClass="subtitle-label" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+                            <Label fx:id="invoiceRoomType" text="—" styleClass="label" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+
+                            <Label text="Check-In:" styleClass="subtitle-label" GridPane.columnIndex="0" GridPane.rowIndex="3"/>
+                            <Label fx:id="invoiceCheckin" text="—" styleClass="label" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+
+                            <Label text="Check-Out:" styleClass="subtitle-label" GridPane.columnIndex="0" GridPane.rowIndex="4"/>
+                            <Label fx:id="invoiceCheckout" text="—" styleClass="label" GridPane.columnIndex="1" GridPane.rowIndex="4"/>
+
+                            <Label text="Nights:" styleClass="subtitle-label" GridPane.columnIndex="0" GridPane.rowIndex="5"/>
+                            <Label fx:id="invoiceNights" text="—" styleClass="label" GridPane.columnIndex="1" GridPane.rowIndex="5"/>
+
+                            <Label text="Price / Night:" styleClass="subtitle-label" GridPane.columnIndex="0" GridPane.rowIndex="6"/>
+                            <Label fx:id="invoicePricePerNight" text="—" styleClass="label" GridPane.columnIndex="1" GridPane.rowIndex="6"/>
+                        </GridPane>
+
+                        <Line startX="0" endX="400" stroke="rgba(197,160,60,0.2)" strokeWidth="1"/>
+
+                        <!-- Total -->
+                        <HBox alignment="CENTER_LEFT">
+                            <Label text="Total Amount:" style="-fx-text-fill: #FFFFFF; -fx-font-size: 15px; -fx-font-weight: bold; -fx-font-family: Georgia;" HBox.hgrow="ALWAYS"/>
+                            <Label fx:id="invoiceTotal" text="0.00"
+                                   style="-fx-text-fill: #C5A03C; -fx-font-size: 22px; -fx-font-weight: bold; -fx-font-family: Georgia;"/>
+                        </HBox>
+
+                        <HBox alignment="CENTER_LEFT">
+                            <Label text="Account Balance After:" styleClass="subtitle-label" HBox.hgrow="ALWAYS"/>
+                            <Label fx:id="invoiceBalanceAfter" text="0.00" styleClass="label"/>
+                        </HBox>
+
+                        <Line startX="0" endX="400" stroke="rgba(197,160,60,0.08)" strokeWidth="1"/>
+
+                        <!-- Confirm button -->
+                        <Button text="✓  Confirm Payment &amp; Check Out"
+                                styleClass="button" prefWidth="400" prefHeight="46"
+                                onAction="#handleConfirmCheckout"/>
+
+                        <Button text="← Back to Reservations"
+                                styleClass="secondary-button" prefWidth="400"
+                                onAction="#navigateToReservations"/>
+
+                    </VBox>
+                </VBox>
+
+            </HBox>
+        </VBox>
+    </center>
+
+</BorderPane>

@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.example.Controllers.RoomBrowsingController"
+            prefHeight="720.0" prefWidth="1200.0"
+            styleClass="main-background"
+            stylesheets="@../styles/styles.css">
+
+    <!-- SIDEBAR (same structure as dashboard) -->
+    <left>
+        <VBox styleClass="sidebar" spacing="0">
+            <VBox alignment="CENTER" spacing="6" style="-fx-padding: 32px 20px 28px 20px;
+                  -fx-border-color: transparent transparent rgba(197,160,60,0.2) transparent;
+                  -fx-border-width: 0 0 1px 0;">
+                <Label text="✦" style="-fx-font-size: 24px; -fx-text-fill: #C5A03C;"/>
+                <Label text="AZURE GRAND" style="-fx-font-size: 13px; -fx-font-weight: bold; -fx-text-fill: #FFFFFF; -fx-font-family: Georgia;"/>
+                <Label text="H O T E L" style="-fx-font-size: 9px; -fx-text-fill: #C5A03C; -fx-font-family: Georgia;"/>
+            </VBox>
+
+            <VBox spacing="2" style="-fx-padding: 16px 0;">
+                <Label text="NAVIGATION" style="-fx-text-fill: #3A5A6A; -fx-font-size: 10px; -fx-font-family: Georgia; -fx-padding: 0 24px 8px 24px;"/>
+                <Button text="⊞  Dashboard" styleClass="nav-button" onAction="#navigateToDashboard"/>
+                <Button text="🛏  Browse Rooms" styleClass="nav-button-active"/>
+                <Button text="📋  My Reservations" styleClass="nav-button" onAction="#navigateToReservations"/>
+                <Button text="💳  Checkout" styleClass="nav-button" onAction="#navigateToCheckout"/>
+            </VBox>
+
+            <Region VBox.vgrow="ALWAYS"/>
+            <VBox style="-fx-padding: 16px; -fx-border-color: rgba(197,160,60,0.15) transparent transparent transparent; -fx-border-width: 1px 0 0 0;">
+                <Button text="⎋  Sign Out" styleClass="secondary-button" prefWidth="208" onAction="#handleLogout"/>
+            </VBox>
+        </VBox>
+    </left>
+
+    <!-- MAIN CONTENT -->
+    <center>
+        <VBox style="-fx-background-color: #0B1520;">
+
+            <!-- Header -->
+            <HBox styleClass="header-bar" alignment="CENTER_LEFT" spacing="0">
+                <VBox spacing="2" HBox.hgrow="ALWAYS">
+                    <Label text="Browse Rooms" style="-fx-text-fill: #FFFFFF; -fx-font-size: 18px; -fx-font-weight: bold; -fx-font-family: Georgia;"/>
+                    <Label text="Find your perfect room at Azure Grand" styleClass="subtitle-label"/>
+                </VBox>
+            </HBox>
+
+            <VBox spacing="20" style="-fx-padding: 28px; -fx-background-color: transparent;" VBox.vgrow="ALWAYS">
+
+                <!-- Filter Bar -->
+                <HBox styleClass="card" spacing="16" alignment="CENTER_LEFT">
+                    <Label text="Filter by:" styleClass="section-title"/>
+                    <VBox spacing="4">
+                        <Label text="Room Type" styleClass="subtitle-label"/>
+                        <ChoiceBox fx:id="typeFilter" prefWidth="150" prefHeight="38"
+                                   styleClass="choice-box"/>
+                    </VBox>
+                    <VBox spacing="4">
+                        <Label text="Max Price / Night" styleClass="subtitle-label"/>
+                        <TextField fx:id="priceFilter" promptText="e.g. 300"
+                                   styleClass="text-field" prefWidth="130" prefHeight="38"/>
+                    </VBox>
+                    <Region HBox.hgrow="ALWAYS"/>
+                    <Button text="🔍  Search" styleClass="button" onAction="#handleFilter"/>
+                    <Button text="↺  Reset" styleClass="secondary-button" onAction="#handleReset"/>
+                </HBox>
+
+                <!-- Rooms Table -->
+                <VBox styleClass="card" spacing="14" VBox.vgrow="ALWAYS">
+                    <HBox alignment="CENTER_LEFT">
+                        <Label text="Available Rooms" styleClass="section-title" HBox.hgrow="ALWAYS"/>
+                        <Label fx:id="roomCountLabel" text="0 rooms available"
+                               style="-fx-text-fill: #C5A03C; -fx-font-size: 12px; -fx-font-family: Georgia;"/>
+                    </HBox>
+                    <Line startX="0" endX="900" stroke="rgba(197,160,60,0.15)" strokeWidth="1"/>
+
+                    <TableView fx:id="roomsTable" VBox.vgrow="ALWAYS" styleClass="table-view">
+                        <columns>
+                            <TableColumn fx:id="roomNumberCol" text="Room No." prefWidth="90"/>
+                            <TableColumn fx:id="roomTypeCol" text="Type" prefWidth="120"/>
+                            <TableColumn fx:id="roomPriceCol" text="Price / Night" prefWidth="120"/>
+                            <TableColumn fx:id="roomAmenitiesCol" text="Amenities" prefWidth="280"/>
+                            <TableColumn fx:id="roomStatusCol" text="Status" prefWidth="100"/>
+                        </columns>
+                        <placeholder>
+                            <Label text="No rooms available at this time."
+                                   style="-fx-text-fill: #6A8A9A; -fx-font-family: Georgia; -fx-font-style: italic;"/>
+                        </placeholder>
+                    </TableView>
+
+                    <!-- Booking section -->
+                    <HBox styleClass="card" spacing="16" alignment="CENTER_LEFT">
+                        <Label text="Book Selected Room:" styleClass="section-title"/>
+                        <VBox spacing="4">
+                            <Label text="Check-In Date" styleClass="subtitle-label"/>
+                            <TextField fx:id="checkInField" promptText="YYYY-MM-DD"
+                                       styleClass="text-field" prefWidth="150" prefHeight="38"/>
+                        </VBox>
+                        <VBox spacing="4">
+                            <Label text="Check-Out Date" styleClass="subtitle-label"/>
+                            <TextField fx:id="checkOutField" promptText="YYYY-MM-DD"
+                                       styleClass="text-field" prefWidth="150" prefHeight="38"/>
+                        </VBox>
+                        <Region HBox.hgrow="ALWAYS"/>
+                        <Button text="🛏  Book This Room" styleClass="button"
+                                prefHeight="42" onAction="#handleBookRoom"/>
+                    </HBox>
+
+                </VBox>
+            </VBox>
+        </VBox>
+    </center>
+
+</BorderPane>

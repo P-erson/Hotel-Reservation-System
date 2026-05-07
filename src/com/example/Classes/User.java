@@ -9,12 +9,6 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 
-enum UserTypes{
-    GUEST,
-    ADMIN,
-    RECEPTIONIST
-}
-
 public class User {
     private String username, password;
     private LocalDate dateOfBirth;

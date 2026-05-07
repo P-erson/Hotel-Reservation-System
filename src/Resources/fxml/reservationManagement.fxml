@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.example.Controllers.ReservationController"
+            prefHeight="720.0" prefWidth="1200.0"
+            styleClass="main-background"
+            stylesheets="@../styles/styles.css">
+
+    <!-- SIDEBAR -->
+    <left>
+        <VBox styleClass="sidebar" spacing="0">
+            <VBox alignment="CENTER" spacing="6" style="-fx-padding: 32px 20px 28px 20px;
+                  -fx-border-color: transparent transparent rgba(197,160,60,0.2) transparent;
+                  -fx-border-width: 0 0 1px 0;">
+                <Label text="✦" style="-fx-font-size: 24px; -fx-text-fill: #C5A03C;"/>
+                <Label text="AZURE GRAND" style="-fx-font-size: 13px; -fx-font-weight: bold; -fx-text-fill: #FFFFFF; -fx-font-family: Georgia;"/>
+                <Label text="H O T E L" style="-fx-font-size: 9px; -fx-text-fill: #C5A03C; -fx-font-family: Georgia;"/>
+            </VBox>
+
+            <VBox spacing="2" style="-fx-padding: 16px 0;">
+                <Label text="NAVIGATION" style="-fx-text-fill: #3A5A6A; -fx-font-size: 10px; -fx-font-family: Georgia; -fx-padding: 0 24px 8px 24px;"/>
+                <Button text="⊞  Dashboard" styleClass="nav-button" onAction="#navigateToDashboard"/>
+                <Button text="🛏  Browse Rooms" styleClass="nav-button" onAction="#navigateToRooms"/>
+                <Button text="📋  My Reservations" styleClass="nav-button-active"/>
+                <Button text="💳  Checkout" styleClass="nav-button" onAction="#navigateToCheckout"/>
+            </VBox>
+
+            <Region VBox.vgrow="ALWAYS"/>
+            <VBox style="-fx-padding: 16px; -fx-border-color: rgba(197,160,60,0.15) transparent transparent transparent; -fx-border-width: 1px 0 0 0;">
+                <Button text="⎋  Sign Out" styleClass="secondary-button" prefWidth="208" onAction="#handleLogout"/>
+            </VBox>
+        </VBox>
+    </left>
+
+    <!-- MAIN CONTENT -->
+    <center>
+        <VBox style="-fx-background-color: #0B1520;">
+
+            <!-- Header -->
+            <HBox styleClass="header-bar" alignment="CENTER_LEFT">
+                <VBox spacing="2" HBox.hgrow="ALWAYS">
+                    <Label text="My Reservations" style="-fx-text-fill: #FFFFFF; -fx-font-size: 18px; -fx-font-weight: bold; -fx-font-family: Georgia;"/>
+                    <Label text="Manage your bookings at Azure Grand" styleClass="subtitle-label"/>
+                </VBox>
+            </HBox>
+
+            <VBox spacing="20" style="-fx-padding: 28px;" VBox.vgrow="ALWAYS">
+
+                <!-- Status filter tabs -->
+                <HBox spacing="10">
+                    <Button fx:id="allTab" text="All" styleClass="button" onAction="#filterAll"/>
+                    <Button text="Confirmed" styleClass="secondary-button" onAction="#filterConfirmed"/>
+                    <Button text="Pending" styleClass="secondary-button" onAction="#filterPending"/>
+                    <Button text="Completed" styleClass="secondary-button" onAction="#filterCompleted"/>
+                    <Button text="Cancelled" styleClass="secondary-button" onAction="#filterCancelled"/>
+                </HBox>
+
+                <!-- Reservations table -->
+                <VBox styleClass="card" spacing="14" VBox.vgrow="ALWAYS">
+                    <HBox alignment="CENTER_LEFT">
+                        <Label text="Your Reservations" styleClass="section-title" HBox.hgrow="ALWAYS"/>
+                        <Label fx:id="countLabel" text="0 reservations"
+                               style="-fx-text-fill: #C5A03C; -fx-font-size: 12px; -fx-font-family: Georgia;"/>
+                    </HBox>
+                    <Line startX="0" endX="900" stroke="rgba(197,160,60,0.15)" strokeWidth="1"/>
+
+                    <TableView fx:id="reservationsTable" VBox.vgrow="ALWAYS" styleClass="table-view">
+                        <columns>
+                            <TableColumn fx:id="resRoomCol" text="Room No." prefWidth="90"/>
+                            <TableColumn fx:id="resTypeCol" text="Type" prefWidth="110"/>
+                            <TableColumn fx:id="resCheckinCol" text="Check-In" prefWidth="120"/>
+                            <TableColumn fx:id="resCheckoutCol" text="Check-Out" prefWidth="120"/>
+                            <TableColumn fx:id="resPriceCol" text="Total Price" prefWidth="110"/>
+                            <TableColumn fx:id="resStatusCol" text="Status" prefWidth="110"/>
+                        </columns>
+                        <placeholder>
+                            <Label text="No reservations found."
+                                   style="-fx-text-fill: #6A8A9A; -fx-font-family: Georgia; -fx-font-style: italic;"/>
+                        </placeholder>
+                    </TableView>
+
+                    <!-- Action buttons -->
+                    <HBox spacing="12" alignment="CENTER_RIGHT">
+                        <Button text="💳  Proceed to Checkout" styleClass="button"
+                                onAction="#handleCheckout"/>
+                        <Button text="✕  Cancel Reservation" styleClass="danger-button"
+                                onAction="#handleCancel"/>
+                    </HBox>
+
+                </VBox>
+            </VBox>
+        </VBox>
+    </center>
+
+</BorderPane>
